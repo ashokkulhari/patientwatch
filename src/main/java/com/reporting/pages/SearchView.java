@@ -22,8 +22,7 @@ public class SearchView implements Serializable{
 	private String samId;
     private boolean istableenabled;
     private List<SearchData> results;
-	
-	
+		
 
 	@PostConstruct
     public void init() {
