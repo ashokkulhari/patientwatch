@@ -75,6 +75,7 @@ public class RegistrationView implements Serializable {
 
 	
 	public RegistrationView(){
+		
 		System.out.println("...................RegisterView.......constructor.............");
 	}
 	@PostConstruct
