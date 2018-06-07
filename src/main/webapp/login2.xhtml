@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body>
+	      <div class="outer-container">
+        <div class="inner-container">
+          <div class="ui-widget ui-widget-header" align="center" style="height: 50px;">
+          <br />Reporting System</div>
+          <div class="main">
+            <div class="content" align="center" style="height: 240px; ">
+            <br /><br />
+              <p:panel header="Login" style="width: 300px;">
+              
+                
+                
+                <form action="${pageContext.request.contextPath}/customer/login" method="post" >
+                  <table cellspacing="5">
+                    <tr>
+                      <td>Username:</td><td  align="left" >
+                      <input name="c_name" path="c_name" style="width: px; " /></td>
+                    </tr>
+                    <tr>
+                      <td>Password:</td><td align="left" >
+                      <input name="c_password" path="c_password" align="left" type="password" style="width: px; " /></td>
+                    </tr>
+                    <tr>
+                      <td align="left"><input type='checkbox'  name="_spring_security_remember_me"/>Remember me on this computer.</td>
+                    </tr>
+                    <tr>
+                      <td></td><td align="left">
+                      
+                      <h:button value="Login"  style="list-style-position: inside; list-style-type: circle"></h:button>
+                      </td>
+                    </tr>
+                  </table>
+                </form>
+              </p:panel>
+              
+            </div>
+
+            <div class="clearer"></div>
+          </div>
+
+        </div>
+      </div>
+</h:body>
+</html>

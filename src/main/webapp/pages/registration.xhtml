@@ -1,0 +1,532 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:pm="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui"
+    template="template.xhtml">
+
+  <ui:define name="head">
+    <style type="text/css">
+    img {
+          border-style: none;
+        }
+       .contentPanel {
+        vertical-align:top;
+        width: 70%;
+        margin: 0px;
+        padding: 0px;
+      }
+      .ui-header {
+        width: 100%;
+        padding: 0;
+        
+      }
+	.header {
+  width: 950px;
+  margin: auto;
+  position: relative;
+  background: #fff;
+  overflow: hidden;
+}
+.column1 {
+    width: 50%;
+    text-align: left;
+}
+.column2 {
+    width: 50%;
+    text-align: right;
+}.ui-state-disabled {
+	opacity: .8 !important;
+}
+.topAligned {
+    vertical-align: top;
+}
+    </style>
+  </ui:define>
+<ui:define name="content">
+
+<h:body>
+	<h:form id="form"  >
+    <p:growl id="message" showDetail="true" />
+   
+    <p:tabView  >
+        <p:tab title="Registration">
+            
+          <div class="ui-fluid">
+                <p:panelGrid  columns="4" rowClass="ui-grid-row"  columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                             layout="grid" styleClass="ui-fluid card">
+                    
+                  <f:facet name="header"><div align="left"> Basic Details </div></f:facet> 
+                     
+                    <p:outputLabel for="input" value="Name of Investigator :"/>
+                    <p:inputText id="input" value="#{registrationView.registration.investigatorName}" disabled ="#{registrationView.disableAll}" />
+                    
+                    <p:outputLabel for="calendar" value="Date of Visit:"/>
+                    <p:calendar id="calendar" showOn="both" value="#{registrationView.registration.visitDate}" disabled ="#{registrationView.disableAll}">
+                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </p:calendar>
+                   <p:outputLabel for="annual_no" value="Annaul No:"/>
+                    <p:inputText id="annual_no"  value="#{registrationView.registration.annualNo}"  disabled ="#{registrationView.disableAll}"/>
+                    <p:outputLabel for="referred_by" value="Referred By:" />
+            		<p:selectOneMenu id="referred_by" value="#{registrationView.registration.referredBy}" disabled ="#{registrationView.disableAll}">
+            		<f:selectItem itemLabel="Select Referred By" itemValue="" noSelectionOption="true" disabled ="#{registrationView.disableAll}"/>
+                	<f:selectItems value="#{registrationView.refferedBys}" />
+            		</p:selectOneMenu>
+                    
+                    <p:outputLabel for="district" value="District:"  />
+            		<p:selectOneMenu id="district" value="#{registrationView.district}" disabled ="#{registrationView.disableAll}" >
+                	<p:ajax event="change" listener="#{registrationView.onDistrictChange}" update="block,mtc" />
+                	<f:selectItem itemLabel="Select District" itemValue="" noSelectionOption="true" />
+                	<f:selectItems value="#{registrationView.districts}" />
+            		</p:selectOneMenu>
+            		
+            		<p:outputLabel for="block" value="Block:" />
+            		<p:selectOneMenu id="block" value="#{registrationView.block}" disabled ="#{registrationView.disableAll}">
+            		<p:ajax event="change" listener="#{registrationView.onBlockChange}" update="mtc" />
+                	<f:selectItem itemLabel="Select Block" itemValue="" noSelectionOption="true" />
+                	<f:selectItems value="#{registrationView.blocks}" />
+            		</p:selectOneMenu>
+            		
+            		<p:outputLabel for="mtc" value="MTC:" />
+            		<p:selectOneMenu id="mtc" value="#{registrationView.mtc}" disabled ="#{registrationView.disableAll}">
+            		<f:selectItem itemLabel="Select MTC" itemValue="" noSelectionOption="true" />
+                	<f:selectItems value="#{registrationView.mtcs}" />
+            		</p:selectOneMenu>
+                    
+           </p:panelGrid> 
+           </div>
+           <h:form enctype="multipart/form-data" >
+           <div class="ui-fluid">
+                <p:panelGrid  columns="4"  columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                             layout="grid" styleClass="ui-fluid card">
+                  <f:facet name="header"><div align="left"> Child Details </div></f:facet>         
+                    <p:outputLabel for="registration_no" value="Registration No:"/>
+                    <p:inputText id="registration_no"  value="#{registrationView.registration.registrationId}" disabled ="true" />
+                    
+                    <p:outputLabel for="child_name" value="Child Name :"/>
+                    <p:inputText id="child_name" value="#{registrationView.registration.child.childName}" disabled ="#{registrationView.disableAll}"/>
+                    <p:outputLabel for="father_name" value="Father Name :"/>
+                    <p:inputText id="father_name" value="#{registrationView.registration.child.fatherName}" disabled ="#{registrationView.disableAll}"/>
+                    <p:outputLabel for="mother_name" value="Mother Name :"/>
+                    <p:inputText id="mother_name" value="#{registrationView.registration.child.motherName}" disabled ="#{registrationView.disableAll}"/>
+                    
+                   
+                    <p:outputLabel for="dob" value="Birth Date"/>
+                    <p:calendar id="dob" showOn="both"  navigator="true" value="#{registrationView.registration.child.dateOfBirth}" disabled ="#{registrationView.disableAll}"/>
+                    <p:outputLabel for="age_yr" value="Age (Years) :"/>
+                    <p:inputText id="age_yr"  disabled ="true" value="#{registrationView.registration.child.ageYears}" />
+                    <p:outputLabel for="age_month" value="Age (Months) :"/>
+                    <p:inputText id="age_month"  disabled ="true" value="#{registrationView.registration.child.ageMonths}" />
+                    
+                    <p:outputLabel for="gender" value="Gender:" />
+            		<p:selectOneMenu id="gender" value="#{registrationView.registration.child.gender}" disabled ="#{registrationView.disableAll}">
+            		<f:selectItem itemLabel="Select Gender" itemValue="" noSelectionOption="true" />
+                	<f:selectItems value="#{registrationView.genders}" />
+            		</p:selectOneMenu>
+            		
+                    <p:outputLabel for="caste" value="Caste:" />
+            		<p:selectOneMenu id="caste" value="#{registrationView.registration.child.caste}" disabled ="#{registrationView.disableAll}">
+            		<f:selectItem itemLabel="Select Caste" itemValue="" noSelectionOption="true" />
+                	<f:selectItems value="#{registrationView.castes}" />
+            		</p:selectOneMenu>
+					
+					<p:outputLabel for="current_adderss" value="Current Address :"/>
+                    <p:inputTextarea id="current_adderss" value="#{registrationView.registration.child.currentAddress}" disabled ="#{registrationView.disableAll}"/>
+                    <p:outputLabel for="permanent_adderss" value="Permanent Address :"/>
+                    <p:inputTextarea id="permanent_adderss" value="#{registrationView.registration.child.permanentAddress}" disabled ="#{registrationView.disableAll}"/>
+                    <p:outputLabel for="phone_num" value="Phone Number :"/>
+                    <p:inputText id="phone_num" value="#{registrationView.registration.child.phoneNumber}" disabled ="#{registrationView.disableAll}"/>
+					<p:outputLabel for="aadhar_num" value="Aadhar Number :"/>
+                    <p:inputText id="aadhar_num" value="#{registrationView.registration.child.aadharNumber}" disabled ="#{registrationView.disableAll}"/>
+                    <p:outputLabel for="bhamasah_num" value="Bhamasah Number (Any family Member):"/>
+                    <p:inputText id="bhamasah_num" value="#{registrationView.registration.child.bhamashaNumber}" disabled ="#{registrationView.disableAll}"/>
+                    <p:outputLabel for="bhamasah_num" value="Upload Child Photo:"/>
+                    
+					<p:fileUpload  value="#{registrationView.file}" mode="advanced"  update="messages, photo"
+						fileUploadListener="#{registrationView.handleFileUpload}"  disabled ="#{registrationView.disableAll}" ></p:fileUpload>
+					
+					<p:outputLabel for="photo" value="Photo:"/>
+                    <p:graphicImage id ="photo" value="#{registrationView.photo}" >
+                    <f:param name="id" value="#{registrationView.imageId}" />
+                    </p:graphicImage>			
+						<p:growl id="messages" showDetail="true" />	
+					
+           </p:panelGrid> 
+           </div>
+           </h:form>
+           <div class="ui-fluid">
+                <p:panelGrid  columns="4"  columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                             layout="grid" styleClass="ui-fluid card">
+                  <f:facet name="header"><div align="left"> Child Anthropometry Details: </div></f:facet>  
+                  
+                  <p:outputLabel for="muac" value="MUAC(cm):"/>
+                    <p:inputText id="muac" value="#{registrationView.anthropometryOne.muac}" disabled ="#{registrationView.disableAll}"/>
+                    <p:outputLabel for="len_or_height" value="Length/Height:"/>
+                    <p:inputText id="len_or_height" value="#{registrationView.anthropometryOne.lenHeight}" disabled ="#{registrationView.disableAll}"/>
+                    <p:outputLabel for="weight" value="Weight:"/>
+                    <p:inputText id="weight" value="#{registrationView.anthropometryOne.weight}" disabled ="#{registrationView.disableAll}"/>
+                    <p:outputLabel for="wfh_wlh" value="Weight(wfh_wlh):"/>
+                    <p:inputText id="wfh_wlh" value="#{registrationView.anthropometryOne.wForHWForL}" disabled ="true"/>
+                    <p:outputLabel for="oedema" value="oedema:"/>
+                    <p:inputText id="oedema" value="#{registrationView.anthropometryOne.oedema}" disabled ="#{registrationView.disableAll}"/>
+                    <p:outputLabel for="medical_comp" value="medical_comp:"/>
+                    <p:inputTextarea id="medical_comp" value="#{registrationView.anthropometryOne.medicalComplications}" disabled ="#{registrationView.disableAll}"/>
+                    <p:outputLabel for="remarks" value="remarks:"/>
+                    <p:inputTextarea id="remarks" value="#{registrationView.anthropometryOne.remark}" disabled ="#{registrationView.disableAll}"/>
+             </p:panelGrid> 
+           </div> 
+           <div class="ui-fluid">
+                <p:panelGrid  columns="4"  columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                             layout="grid" styleClass="ui-fluid card">
+                   
+           			<p:commandButton value="Register" id="register_submit" style="width:100px;height:25px" 
+        			action="#{registrationView.doRegister}" ajax="false" disabled ="#{registrationView.disableAll}"> 
+        			<f:setPropertyActionListener target="#{admissionView.admission.registration}" value="#{registrationView.registration}" />
+        			</p:commandButton>
+        			
+        		</p:panelGrid> 
+           </div>   
+        </p:tab>
+
+
+<!--  ADMISSION-->
+        <p:tab title="Admission">
+        
+        <div class="ui-fluid">
+                <p:panelGrid  columns="4"  columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                             layout="grid" styleClass="ui-fluid card">
+                  <f:facet name="header"><div align="left"> General Information : </div></f:facet> 
+                  <p:outputLabel for="sam_id" value="SAM ID:"/>
+                    <p:inputText id="sam_id"  value="#{admissionView.admission.samId}" disabled ="true" />        
+                    <p:outputLabel for="registration_no1" value="Registration No:"/>
+                    <p:inputText id="registration_no1"  value="#{registrationView.registration.registrationId}" disabled ="true" />
+                     
+                     <p:outputLabel for="admit_date" value="Admit Date:"/>
+                    <p:calendar id="admit_date" value="#{admissionView.admission.admissionDate}" showOn="both"  navigator="true" disabled ="#{admissionView.disableAll}"/>
+        
+           </p:panelGrid> 
+           </div>
+           
+            <div class="ui-fluid">
+                <p:panelGrid  columns="4"  columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                             layout="grid" styleClass="ui-fluid card">
+                  <f:facet name="header"><div align="left"> Child Anthropometry Details: </div></f:facet>  
+                  
+                  <p:outputLabel for="muac1" value="MUAC(cm):"/>
+                    <p:inputText id="muac1" value="#{admissionView.anthropometryOne.muac}" disabled ="#{admissionView.disableAll}"/>
+                    <p:outputLabel for="len_or_height1" value="Length/Height:"/>
+                    <p:inputText id="len_or_height1" value="#{admissionView.anthropometryOne.lenHeight}" disabled ="#{admissionView.disableAll}"/>
+                    <p:outputLabel for="weight1" value="Weight:"/>
+                    <p:inputText id="weight1" value="#{admissionView.anthropometryOne.weight}" disabled ="#{admissionView.disableAll}"/>
+                    <p:outputLabel for="wfh_wlh1" value="Weight(wfh_wlh):"/>
+                    <p:inputText id="wfh_wlh1" value="#{admissionView.anthropometryOne.wForHWForL}" disabled ="true"/>
+                    <p:outputLabel for="oedema1" value="oedema:"/>
+                    <p:inputText id="oedema1" value="#{admissionView.anthropometryOne.oedema}" disabled ="#{admissionView.disableAll}"/>
+                    <p:outputLabel for="medical_comp1" value="medical_comp:"/>
+                    <p:inputTextarea id="medical_comp1" value="#{admissionView.anthropometryOne.medicalComplications}" disabled ="#{admissionView.disableAll}"/>
+                    <p:outputLabel for="remarks1" value="remarks:"/>
+                    <p:inputTextarea id="remarks1" value="#{admissionView.anthropometryOne.remark}" disabled ="#{admissionView.disableAll}"/>
+             </p:panelGrid> 
+           </div> 
+           
+           <div class="ui-fluid">
+                <p:panelGrid  columns="4"  columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                             layout="grid" styleClass="ui-fluid card">
+           			<p:commandButton value="Admit" id="admit_submit" style="width:100px;height:25px" 
+        			action="#{admissionView.doAdmit}" ajax="false" disabled ="#{admissionView.disableAll}">
+        			<f:setPropertyActionListener target="#{dailyEntryView.anthropometryDaily.admission}" value="#{admissionView.admission}" />
+        			</p:commandButton>  
+        		</p:panelGrid> 
+           </div> 
+
+<!--  Daily Progress Record  		-->
+        </p:tab>
+        <p:tab title="Daily Progress Record">
+             <div class="ui-fluid">
+                <p:panelGrid  columns="4"  columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                             layout="grid" styleClass="ui-fluid card">
+                  <f:facet name="header"><div align="left"> General Information : </div></f:facet> 
+                  <p:outputLabel for="sam_id1" value="SAM ID:"/>
+                    <p:inputText id="sam_id1"  value="#{admissionView.admission.samId}"  disabled ="true" />        
+                     <p:outputLabel for="admit_date1" value="Admit Date:"/>
+                    <p:calendar id="admit_date1" value="#{admissionView.admission.admissionDate}" showOn="both"  navigator="true" disabled ="true"/>
+           </p:panelGrid> 
+           </div>
+           
+            <div class="ui-fluid">
+                <p:panelGrid  columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" 
+                             layout="grid" styleClass="ui-fluid card">
+                  <f:facet name="header"><div align="left"> Child Anthropometry Daily Details: </div></f:facet>  
+                  
+                  <p:outputLabel for="day" value="Select Day:"/>
+            		<p:selectOneMenu id="day" value="#{dailyEntryView.anthropometryDaily.day}" >
+            		<f:selectItem itemLabel="Select Day" itemValue="" noSelectionOption="true" />
+                	<f:selectItems value="#{dailyEntryView.days}" />
+            		</p:selectOneMenu>
+            		
+                 <p:outputLabel for="day_date1" value="Entry Date:"/>
+                    <p:calendar id="day_date1" value="#{dailyEntryView.anthropometryDaily.dayDate}" showOn="both"  navigator="true" />
+                  <p:outputLabel for="muac3" value="MUAC(cm):"/>
+                    <p:inputText id="muac3" value="#{dailyEntryView.anthropometryDaily.muac}" />
+                    
+                    <p:outputLabel for="weight3" value="Weight:"/>
+                    <p:inputText id="weight3" value="#{dailyEntryView.anthropometryDaily.weight}" />
+                    <p:outputLabel for="weight_gain" value="Weight Gain:" />
+                    <p:inputText id="weight_gain" value="#{dailyEntryView.anthropometryDaily.weightGain}" />
+                    <p:outputLabel for="height3" value="Height:"/>
+                    <p:inputText id="height3" value="#{dailyEntryView.anthropometryDaily.height}" />
+                    <p:outputLabel for="zscore" value="Z-Score:"/>
+                    <p:inputText id="zscore" value="#{dailyEntryView.anthropometryDaily.zScore}" />
+                    <p:outputLabel for="oedema3" value="Oedema:"/>
+                    <p:inputText id="oedema3" value="#{dailyEntryView.anthropometryDaily.oedema}" />
+                    <p:outputLabel for="no_feeds" value="No. Of Feeds:"/>
+                    <p:inputText id="no_feeds" value="#{dailyEntryView.anthropometryDaily.noFeeds}" />
+                    <p:outputLabel for="vol_taken" value="Volume Taken:"/>
+                    <p:inputText id="vol_taken" value="#{dailyEntryView.anthropometryDaily.volTaken}" />
+                    
+             </p:panelGrid> 
+           </div> 
+           
+           <div class="ui-fluid">
+                <p:panelGrid  columns="4"  columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                             layout="grid" styleClass="ui-fluid card">
+           			<p:commandButton value="Save Row" id="dayentry_submit" style="width:100px;height:25px" 
+        			action="#{dailyEntryView.saveRow}" ajax="false" >
+        			</p:commandButton>  
+        		</p:panelGrid> 
+           </div> 
+ 		<div class="ui-fluid">
+            
+					<p:dataTable id="adm33" var="result" value="#{dailyEntryView.anthropometryResults}">
+                		<p:column value="Days"  sortBy="#{result.day}" style="width:30px" >
+                  			<f:facet name="header">Days</f:facet>
+                  			<h:outputText value="#{result.day}" escape="false"/>
+                		</p:column >
+                		<p:column  sortBy="#{result.dayDate}" style="width:30px">
+                  		<f:facet name="header"> Date </f:facet>
+                  		<h:outputText value="#{result.dayDate}" escape="false"/>
+                		</p:column>
+                		<p:column  sortBy="#{result.muac}" style="width:30px">
+                  		<f:facet name="header"> Muac  </f:facet>
+                  		<h:outputText value="#{result.muac}" escape="false"/>
+                  		</p:column>
+                  		<p:column  sortBy="#{result.weight}" style="width:30px">
+                  		<f:facet name="header"> Weight  </f:facet>
+                  		<h:outputText value="#{result.weight}" escape="false"/>
+                  		</p:column>
+                  		<p:column style="width:30px" sortBy="#{result.weightGain}">
+                  		<f:facet name="header"> Weight Gain  </f:facet>
+                  		<h:outputText value="#{result.weightGain}" escape="false"/>
+                  		</p:column>
+                  		<p:column style="width:30px" sortBy="#{result.height}">
+                  		<f:facet name="header"> Height  </f:facet>
+                  		<h:outputText value="#{result.height}" escape="false"/>
+                  		</p:column>
+                  		<p:column style="width:30px" sortBy="#{result.zScore}">
+                  		<f:facet name="header"> Z-Score  </f:facet>
+                  		<h:outputText value="#{result.zScore}" escape="false"/>
+                  		</p:column>
+                  		<p:column style="width:60px" sortBy="#{result.oedema}">
+                  		<f:facet name="header"> Oedema Status  </f:facet>
+                  		<h:outputText value="#{result.oedema}" escape="false"/>
+                  		</p:column>
+                  		<p:column style="width:60px" sortBy="#{result.noFeeds}">
+                  		<f:facet name="header"> No. of times daily feeds </f:facet>
+                  		<h:outputText value="#{result.noFeeds}" escape="false"/>
+                  		</p:column>
+                  		<p:column style="width:30px" sortBy="#{result.volTaken}">
+                  		<f:facet name="header"> Volume taken </f:facet>
+                  		<h:outputText value="#{result.volTaken}" escape="false"/>
+                		</p:column>
+                		</p:dataTable>
+           </div> 	
+        </p:tab>
+        
+  <!--   DISCHARGE -->      
+       
+        <p:tab title="Discharge">
+            <div class="ui-fluid">
+                <p:panelGrid  columns="4"  columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                             layout="grid" styleClass="ui-fluid card">
+                  <f:facet name="header"><div align="left"> General Information : </div></f:facet> 
+                  <p:outputLabel for="discharge_date" value="Discharge Date:"/>
+                    <p:calendar id="discharge_date" showOn="both"  navigator="true" />
+                  <p:outputLabel for="sam_id2" value="SAM ID:"/>
+                    <p:inputText id="sam_id2"  value="#{admissionView.admission.samId}"  disabled ="true" />        
+                     <p:outputLabel for="admit_date2" value="Admit Date:"/>
+                    <p:calendar id="admit_date2" value="#{admissionView.admission.admissionDate}" showOn="both"  navigator="true" disabled ="true"/>
+                   
+           </p:panelGrid> 
+           </div>
+           <div class="ui-fluid">
+                <p:panelGrid  columns="4" columnClasses="ui-grid-col-4,ui-grid-col-2,ui-grid-col-4,ui-grid-col-2" 
+                             layout="grid" styleClass="ui-fluid card">
+                  <f:facet name="header"><div align="left"> Discharge Checklist: </div></f:facet>  
+                  
+                  <p:outputLabel for="weight_gain15" value="Child has achieved weight gain of > 15%:"/>
+            		<h:selectBooleanCheckbox id="weight_gain15" value="#{finalCheckBoxView.b2}">
+    				<p:ajax listener="#{finalCheckBoxView.onBol1}"  event="change"  />                                   
+					</h:selectBooleanCheckbox>
+                 <p:outputLabel for="weight_gainGD" value="Has good weight gain (of at least 5g/kg/day for three consecutive days) on exclusive oral feeding"/>
+            		<h:selectBooleanCheckbox id="weight_gainGD" value="#{finalCheckBoxView.b2}">
+    				<p:ajax listener="#{finalCheckBoxView.onBol1}"  event="change"  />                                   
+					</h:selectBooleanCheckbox>
+                  <p:outputLabel for="oedemaR" value="Oedema has resolved"/>
+            		<h:selectBooleanCheckbox id="oedemaR" value="#{finalCheckBoxView.b2}">
+    				<p:ajax listener="#{finalCheckBoxView.onBol1}"  event="change"  />                                   
+					</h:selectBooleanCheckbox>
+					<p:outputLabel for="muac15" value="muac>11.5 cm"/>
+            		<h:selectBooleanCheckbox id="muac15" value="#{finalCheckBoxView.b2}">
+    				<p:ajax listener="#{finalCheckBoxView.onBol1}"  event="change"  />                                   
+					</h:selectBooleanCheckbox>
+					<p:outputLabel for="appet" value="Has good appetite (eating at least 120-130 cal/kg/day)"/>
+            		<h:selectBooleanCheckbox id="appet" value="#{finalCheckBoxView.b2}">
+    				<p:ajax listener="#{finalCheckBoxView.onBol1}"  event="change"  />                                   
+					</h:selectBooleanCheckbox>
+					<p:outputLabel for="bfeed" value="Breast feeding (infants less than 6 months)"/>
+            		<h:selectBooleanCheckbox id="bfeed" value="#{finalCheckBoxView.b2}">
+    				<p:ajax listener="#{finalCheckBoxView.onBol1}"  event="change"  />                                   
+					</h:selectBooleanCheckbox> 
+					<p:outputLabel for="infect" value="All infections and other medical complications have been treated"/>
+            		<h:selectBooleanCheckbox id="infect" value="#{finalCheckBoxView.b2}">
+    				<p:ajax listener="#{finalCheckBoxView.onBol1}"  event="change"  />                                   
+					</h:selectBooleanCheckbox>
+					<p:outputLabel for="imm" value="Immunization is updated"/>
+            		<h:selectBooleanCheckbox id="imm" value="#{finalCheckBoxView.b2}">
+    				<p:ajax listener="#{finalCheckBoxView.onBol1}"  event="change"  />                                   
+					</h:selectBooleanCheckbox>
+					<p:outputLabel for="cr" value="Child is responsing better than earlier"/>
+            		<h:selectBooleanCheckbox id="cr" value="#{finalCheckBoxView.b2}">
+    				<p:ajax listener="#{finalCheckBoxView.onBol1}"  event="change"  />                                   
+					</h:selectBooleanCheckbox>   
+					<p:outputLabel for="cw" value="Clinically well" />
+            		<h:selectBooleanCheckbox id="cw" value="#{finalCheckBoxView.b2}">
+    				<p:ajax listener="#{finalCheckBoxView.onBol1}"  event="change"  />                                   
+					</h:selectBooleanCheckbox> 
+					<p:outputLabel for="fup" value="Follow up plan is scheduled and informed to AWW or ASHA" />
+            		<h:selectBooleanCheckbox id="fup" value="#{finalCheckBoxView.b2}">
+    				<p:ajax listener="#{finalCheckBoxView.onBol1}"  event="change"  />                                   
+					</h:selectBooleanCheckbox>  
+					<p:outputLabel for="ds" value="Select Discharge Status:"/>
+            		<p:selectOneMenu id="ds" value="#{dailyEntryView.curred}" >
+            		<f:selectItem itemLabel="Select Discharge Status" itemValue="" noSelectionOption="true" />
+                	<f:selectItems value="#{dailyEntryView.curreds}" />
+            		</p:selectOneMenu>
+            		
+            		 <p:outputLabel for="fol1" value="Follow Date 1:"/>
+                    <p:inputText id="fol1"  value=" "   /> 
+                    
+                     <p:outputLabel for="fol2" value="Follow Date 2:"/>
+                    <p:inputText id="fol2"  value=" "   />
+                     <p:outputLabel for="fol3" value="Follow Date 3:"/>
+                    <p:inputText id="fol3"  value=" "   />
+                    <p:outputLabel for="fol4" value="Follow Date 4:"/>
+                    <p:inputText id="fol4"  value=" "   />
+             </p:panelGrid> 
+           </div> 
+           <div class="ui-fluid">
+                <p:panelGrid  columns="4"  columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                             layout="grid" styleClass="ui-fluid card">
+           			<p:commandButton value="Discharge" id="discharge_submit" style="width:100px;height:25px" 
+        			action="#{dailyEntryView.saveRow}" ajax="false" >
+        			</p:commandButton>  
+        		</p:panelGrid> 
+           </div>
+           
+           
+				
+        </p:tab>
+        <p:tab title="Follow-up">
+            <div class="ui-fluid">
+                <p:panelGrid  columns="4"  columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                             layout="grid" styleClass="ui-fluid card">
+                  <f:facet name="header"><div align="left"> General Information : </div></f:facet> 
+                  
+                  <p:outputLabel for="sam_id3" value="SAM ID:"/>
+                    <p:inputText id="sam_id3"  value="#{admissionView.admission.samId}"  disabled ="true" />        
+                     <p:outputLabel for="admit_date3" value="Admit Date:"/>
+                    <p:calendar id="admit_date3" value="#{admissionView.admission.admissionDate}" showOn="both"  navigator="true" disabled ="true"/>
+           </p:panelGrid> 
+           </div>
+           
+         
+		<div class="ui-fluid"><div type="header" align="center">Anthropomerty details at time of discharge : </div>
+           <p:dataTable id="record1" var="result1" value="#{searchView.results}">
+                
+                <p:column >
+                  <f:facet name="header">Discharge Date</f:facet>
+                  <h:outputText value="" escape="false"/>
+                </p:column>
+                <p:column >
+                  <f:facet name="header">Height/Length</f:facet>
+                  <h:outputText value="" escape="false"/>
+                </p:column>
+                <p:column >
+                  <f:facet name="header">Weight</f:facet>
+                  <h:outputText value="" escape="false"/>
+                </p:column>
+                <p:column>
+                  <f:facet name="header">muac</f:facet>
+                  <h:outputText value="#{result.admissionDate}" escape="false"/>
+                </p:column>
+                <p:column>
+                  <f:facet name="header">Discharge Status</f:facet>
+                  <h:outputText value="" escape="false"/>
+                </p:column>
+				
+              </p:dataTable>
+			</div>	
+			<div class="ui-fluid">
+			<p:separator />
+			</div>
+		<div class="ui-fluid"><div type="header" align="center">Follow Up Data : </div>
+           <p:dataTable id="record2" var="result2" value="#{searchView.results}">
+                <p:column >
+                  <f:facet name="header">Scheduled Followup date</f:facet>
+					<h:outputText value="" escape="false"/>
+                </p:column>
+                <p:column >
+                  <f:facet name="header">Actual Date of Followup</f:facet>
+                  <h:outputText value="" escape="false"/>
+                </p:column>
+                <p:column >
+                  <f:facet name="header">Height/Length</f:facet>
+                  <h:outputText value="" escape="false"/>
+                </p:column>
+                <p:column>
+                  <f:facet name="header">Weight</f:facet>
+                  <h:outputText value="" escape="false"/>
+                </p:column>
+                <p:column>
+                  <f:facet name="header">muac</f:facet>
+                  <h:outputText value="" escape="false"/>
+                </p:column>
+				<p:column>
+                  <f:facet name="header">Remark</f:facet>
+                  <h:outputText value="" escape="false"/>
+                </p:column>
+                <p:column>
+                  <f:facet name="header">Followup done by (Name)</f:facet>
+                  <h:outputText value="" escape="false"/>
+                </p:column>
+                <p:column>
+                  <f:facet name="header">Worker Post (AWW/ASHA)</f:facet>
+                  <h:outputText value="" escape="false"/>
+                </p:column>
+                <p:column>
+                  <f:facet name="header">AWW/ASHA contact no.</f:facet>
+                  <h:outputText value="" escape="false"/>
+                </p:column>
+              </p:dataTable>
+			</div>	
+			
+        </p:tab>
+    </p:tabView>
+    
+</h:form>
+
+</h:body>
+  </ui:define>
+
+</ui:composition>

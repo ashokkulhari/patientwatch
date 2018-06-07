@@ -1,0 +1,156 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="template.xhtml">
+
+  <ui:define name="head">
+    <style type="text/css">
+    img {
+          border-style: none;
+          
+        }
+       .contentPanel {
+        vertical-align:top;
+        width: 70%;
+        margin: 0px;
+        padding: 0px;
+      }
+      .ui-header {
+        width: 100%;
+        padding: 0;
+        
+      }
+	.header {
+  width: 950px;
+  margin: auto;
+  position: relative;
+  background: #fff;
+  overflow: hidden;
+}
+.column1 {
+    width: 50%;
+    text-align: left;
+}
+
+.column2 {
+    width: 50%;
+    text-align: right;
+}
+    </style>
+  </ui:define>
+
+ 
+<ui:define name="content">
+
+<br/>
+<br/>
+    <h:panelGrid id="twoSideGrid" columns="2"  cellpadding="1" cellspacing="1" style="width: 100%;">
+
+      <p:panel id="propPanel">
+
+        <h:form>
+				<h:outputText  value="ADMISSION AGE WISE REPORT" style="font-weight:bold"/>
+				
+	<p:spacer width="100" height="30" /> 
+	<p:separator />			
+<h:panelGrid columns="3" cellpadding="5"   >
+		<h:panelGroup>
+            <p:outputLabel for="district" value="District: " />
+            <p:selectOneMenu id="district" value="#{dropdownView.district}" style="width:150px">
+                <p:ajax listener="#{dropdownView.onDistrictChange}" update="block" />
+                <f:selectItem itemLabel="Select District" itemValue="" noSelectionOption="true" />
+                <f:selectItems value="#{dropdownView.districts}" />
+            </p:selectOneMenu>
+	 </h:panelGroup>
+ 		<h:panelGroup>
+            <p:outputLabel for="block" value="Block: " />
+            <p:selectOneMenu id="block" value="#{dropdownView.block}" >
+            <p:ajax listener="#{dropdownView.onBlockChange}" update="mtc" />
+                <f:selectItem itemLabel="Select Block" itemValue="" noSelectionOption="true" />
+                <f:selectItems value="#{dropdownView.blocks}" />
+            </p:selectOneMenu>
+            </h:panelGroup>
+            
+            <h:panelGroup>
+            <p:outputLabel for="mtc" value="MTC: " />
+            <p:selectOneMenu id="mtc" value="#{dropdownView.mtc}" >
+            <f:selectItem itemLabel="Select MTC" itemValue="" noSelectionOption="true" />
+                <f:selectItems value="#{dropdownView.mtcs}" />
+            </p:selectOneMenu>
+            </h:panelGroup>
+            
+            <h:panelGroup>
+            <p:outputLabel for="startdate" value="Start Date:" />
+        	<p:calendar id="startdate"  showOn="button" popupIconOnly="true" pattern="dd/MM/yyyy" locale="en" placeholder ="dd/MM/yyyy" required="true">
+        	<f:convertDateTime pattern="dd/MM/yyyy" />
+        	<p:ajax event="dateSelect" update="enddate" />
+        	</p:calendar>
+        	</h:panelGroup>
+        	<h:panelGroup>
+            <p:outputLabel for="enddate" value="End Date:" />
+        	<p:calendar id="enddate"  showOn="button" binding="#{startdate}" popupIconOnly="true" pattern="dd/MM/yyyy" locale="en" placeholder ="dd/MM/yyyy">
+        	<f:convertDateTime pattern="dd/MM/yyyy" />
+        	<f:attribute name="startDate" value="#{startdate}" />
+    <f:validator validatorId="primeDateRangeValidator" />
+        	</p:calendar>
+        	</h:panelGroup>
+        	
+        	
+        	<h:panelGroup>
+        	<p:commandButton value="Generate Report" id="nonAjax" actionListener="#{dropdownView.onBlockChange}" ajax="false" />
+        	</h:panelGroup>
+        	
+        	</h:panelGrid>
+        	
+        	
+<h:graphicImage id="images" library="images" name="/raj-map-all.jpg" usemap="true">
+    <h:commandLink action="#{dropdownView.onLocationRender}" id="links1" value="#{dropdownView.islocationrender}" coords="225,52,25" shape="circle"></h:commandLink>
+    <h:commandLink action="#{dropdownView.onLocationRender}" id="links2" value="map2" coords="200,133,36" shape="circle"></h:commandLink>
+</h:graphicImage>
+        <p:separator />
+        <p:spacer width="100" height="10" /> 
+              <p:dataTable id="admissionwisereport" var="version" value="A">
+                <p:column style="width:40px"  sortBy="SS">
+                  <f:facet name="header">Version </f:facet>
+                </p:column>
+                <p:column style="width:50px" sortBy="AA">
+                  <f:facet name="header"> Owner </f:facet>
+                  <h:outputText value="Q" escape="false"/>
+                </p:column>
+                <p:column style="width:116px" sortBy="WW">
+                  <f:facet name="header"> Date  </f:facet>
+                  <h:outputText value="DD" escape="false"/>
+                </p:column>
+
+                <p:column>
+                  <f:facet name="header">
+                    Comment
+                  </f:facet>
+                  <h:outputText value="HHH" escape="false"/>
+                </p:column>
+
+              </p:dataTable>
+         
+
+          <br/>
+          <br/>
+          <br/>
+
+
+
+        </h:form>
+
+        <br/>
+      </p:panel>
+
+    </h:panelGrid>
+
+
+  </ui:define>
+
+</ui:composition>
+
+
+

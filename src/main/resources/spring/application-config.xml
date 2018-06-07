@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <context:annotation-config />
+    <!-- Uncomment and add your base-package here:-->
+         <!-- context:component-scan  base-package="com.reporting.services.customerService"/--> 
+<context:component-scan base-package="com.reporting"/>
+  <!-- bean id="loginController" class="com.reporting.controller.LoginController"/-->
+  
+ <!-- Configure JDBC Connection-->
+ 
+    
+
+<bean id="dataSource"
+            class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+            <property name="driverClassName" value="org.postgresql.Driver" />
+            <property name="url" value="jdbc:postgresql://127.0.0.1:5432/reporting" />
+            <property name="username" value="postgres" />
+            <property name="password" value="postgres" />
+      </bean>
+      
+      <!-- Configure Hibernate 4 Session Facotry -->
+      <bean id="sessionFactory"  class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+
+			<property name="dataSource" ref="dataSource" ></property>
+
+			<property name="hibernateProperties">
+			  <props>
+					<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+					<prop key="hibernate.show_sql">true</prop>
+					<prop key="hibernate.hbm2ddl.auto">update</prop>
+			  </props>
+			</property>
+			<property name="annotatedClasses">
+			<list>
+				  <value>com.reporting.model.Customer</value>
+				  <value>com.reporting.entity.MTC</value> 
+				  <value>com.reporting.entity.District</value>
+				  <value>com.reporting.entity.Block</value>
+				  <value>com.reporting.entity.Zone</value> 
+				  <value>com.reporting.entity.State</value> 
+				  <value>com.reporting.entity.Country</value>
+				  <value>com.reporting.entity.Child</value>
+				  <value>com.reporting.entity.Registration</value> 
+				  <value>com.reporting.entity.ChildPhoto</value>
+				  <value>com.reporting.entity.AnthropometryOne</value>
+				  <value>com.reporting.entity.AnthropometryDaily</value>
+				  <value>com.reporting.entity.Admission</value>
+				  <!-- Entity classes-->
+			</list>
+			</property>
+
+      </bean>
+      
+       <!-- Transaction Manager -->
+	 <bean id="transactionManager"
+	             class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+	     <property name="sessionFactory" ref="sessionFactory"/>
+	 </bean>
+	 <bean id="customerDAO"  class="com.reporting.dao.CustomerDAOImpl"  >
+	 	<property name="sessionFactory" ref="sessionFactory"></property>
+	 </bean> 
+	 <bean id="customerService"  class="com.reporting.services.CustomerServiceImpl"  >
+	 	<property name="customerDAO" ref="customerDAO"></property>
+	 	<property name="reportsUtilModel" ref="reportsUtilModel"></property>
+	 	
+	 </bean>
+	 <bean id="countryDao"  class="com.reporting.dao.CountryDaoImpl"  >
+	 	<property name="sessionFactory" ref="sessionFactory"></property>
+	 </bean> 
+	 <bean id="stateDao"  class="com.reporting.dao.StateDaoImpl"  >
+	 	<property name="sessionFactory" ref="sessionFactory"></property>
+	 </bean>
+	 <bean id="zoneDao"  class="com.reporting.dao.ZoneDaoImpl"  >
+	 	<property name="sessionFactory" ref="sessionFactory"></property>
+	 </bean>
+	 <bean id="districtDao"  class="com.reporting.dao.DistrictDaoImpl"  >
+	 	<property name="sessionFactory" ref="sessionFactory"></property>
+	 </bean>
+	 <bean id="blockDao"  class="com.reporting.dao.BlockDaoImpl"  >
+	 	<property name="sessionFactory" ref="sessionFactory"></property>
+	 </bean>
+	 <bean id="mtcDao"  class="com.reporting.dao.MTCDaoImpl"  >
+	 	<property name="sessionFactory" ref="sessionFactory"></property>
+	 </bean>
+	 <bean id="locationService"  class="com.reporting.services.LocationServiceImpl"  >
+	 	<property name="countryDao" ref="countryDao"></property>
+	 	<property name="stateDao" ref="stateDao"></property>
+	 	<property name="zoneDao" ref="zoneDao"></property>
+	 	<property name="districtDao" ref="districtDao"></property>
+	 	<property name="blockDao" ref="blockDao"></property>
+	 	<property name="mtcDao" ref="mtcDao"></property>
+	 </bean>
+	 <bean id="childDao"  class="com.reporting.dao.ChildDaoImpl"  >
+	 	<property name="sessionFactory" ref="sessionFactory"></property>
+	 </bean>
+	 <bean id="childPhotoDao"  class="com.reporting.dao.ChildPhotoDaoImpl"  >
+	 	<property name="sessionFactory" ref="sessionFactory"></property>
+	 </bean>
+	 <bean id="registrationDao"  class="com.reporting.dao.RegistrationDaoImpl"  >
+	 	<property name="sessionFactory" ref="sessionFactory"></property>
+	 </bean>
+	 <bean id="anthropometryOneDao"  class="com.reporting.dao.AnthropometryOneDaoImpl"  >
+	 	<property name="sessionFactory" ref="sessionFactory"></property>
+	 </bean>
+	 <bean id="anthropometryDailyDao"  class="com.reporting.dao.AnthropometryDailyDaoImpl"  >
+	 	<property name="sessionFactory" ref="sessionFactory"></property>
+	 </bean>
+	 <bean id="registrationService"  class="com.reporting.services.RegistrationServiceImpl"  >
+	 	<property name="childDao" ref="childDao"></property>
+	 	<property name="registrationDao" ref="registrationDao"></property>
+	 	<property name="childPhotoDao" ref="childPhotoDao"></property>
+	 	<property name="anthropometryOneDao" ref="anthropometryOneDao"></property>
+	 </bean>
+	 
+	 <bean id="admissionDao"  class="com.reporting.dao.AdmissionDaoImpl"  >
+	 	<property name="sessionFactory" ref="sessionFactory"></property>
+	 </bean>
+	 <bean id="admissionService"  class="com.reporting.services.AdmissionServiceImpl"  >
+	 	<property name="admissionDao" ref="admissionDao"></property>
+	 	<property name="anthropometryDailyDao" ref="anthropometryDailyDao"></property>
+	 </bean>
+	 
+	 <bean id="reportsUtilModel"  class="com.reporting.model.ReportsUtilModel"  >
+	 	<property name="sessionFactory" ref="sessionFactory"></property>
+	 </bean>
+	 	
+</beans>

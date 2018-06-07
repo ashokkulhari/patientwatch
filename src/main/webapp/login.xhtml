@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+ xmlns:f="http://java.sun.com/jsf/core"
+ xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+    <h:head>
+    <style type="text/css">
+        img {
+          border-style: none;
+        }
+        
+        .mystyleClass .pf-panel-bd {
+         background: #333333;
+         height: 150px;
+         color:#CCCCCC;
+         }
+      </style>
+        <title>login</title>
+    </h:head>
+    <h:body>
+    <div class="outer-container" >
+     <h:graphicImage library="images" name="/banner.jpg" width="200" height="171" />
+	<h:graphicImage library="images" name="/bannerf.jpg" width="200" height="171" style="float:right;" />
+	
+        <div class="inner-container" >
+          <div class="ui-widget ui-widget-header" align="center" style="height: 40px;">
+          <br /><h:outputLink value="javascript:void(0)" onclick="PF('dlg').show();" title="login">
+        <p:graphicImage library="images" name="/login-button-blue-hi.png" width="40" height="25"  style="float:right;"/>
+    	</h:outputLink>
+          Reporting System
+          </div>
+
+ <h:form  >            
+    <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+ 
+    <p:dialog header="Login" widgetVar="dlg" resizable="false">
+        <h:panelGrid columns="2" cellpadding="5">
+            <h:outputLabel for="username" value="Username:" />
+            <p:inputText id="username" value="#{login.c_name}" required="true" label="username" />
+ 
+            <h:outputLabel for="password" value="Password:" />
+            <p:password id="password" value="#{login.c_password}" required="true" label="password" />
+ 
+            <f:facet name="footer">
+                <p:commandButton value="Login" update="growl" action="#{login.doLogin}"
+                                 oncomplete="handleLoginRequest(xhr, status, args)" />
+            </f:facet>  
+        </h:panelGrid>
+    </p:dialog>
+    
+    
+     <p:growl id="msgs" showDetail="true" />
+        <h:panelGrid columns="3"  style="width: 100%;height:100%;" >
+       		<p:panel id="panel22"  style="height:300px">
+       		
+			<p:imageSwitch effect="wipe" widgetVar="switcher" slideshowAuto="true">
+    			<ui:repeat value="#{imagesView.images}" var="image">
+        		<p:graphicImage library="images" name="/#{image}" />
+    			</ui:repeat>
+			</p:imageSwitch>
+			
+       		</p:panel>
+    		<p:panel id="panel222" header="About Kuposhan Watch" style="height:300px">
+    			<p>A web based application </p>
+    			<p>1. To monitor and track children, who are admitted with severe acute malnutrition in Malnutrition Treatment Centres (MTCs). 
+          		</p>
+    			<p>2. For providing real time information on progress of severely acute malnourished children.
+     			</p>
+     			<p>3. For planning, evaluation and use of information for action in facility based management of severe acute malnutrition.
+     			</p>
+       		</p:panel>
+       			<p:panel id="panel333" header="Key Features" style="height:300px">
+    			<p>1. Tracking of child using unique ID. </p>
+    			<p>2. Alerts for adverse outcomes.</p>
+    			<p>3. Sends voice based SMS Reminder to parents/ care takers for follow-up visits. </p>
+     			<p>4. Dashboard features for analysis and infomration use for evidence based action.</p>
+       		</p:panel>
+		</h:panelGrid>
+    
+    
+</h:form>
+ 
+<script type="text/javascript">
+    function handleLoginRequest(xhr, status, args) {
+        if(args.validationFailed || !args.loggedIn) {
+            PF('dlg').jq.effect("shake", {times:5}, 100);
+        }
+        else {
+            PF('dlg').hide();
+            $('#loginLink').fadeOut();
+        }
+    }
+</script>
+
+        </div>
+      </div>
+    </h:body> 
+ 
+</html>

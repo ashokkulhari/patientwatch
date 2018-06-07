@@ -1,0 +1,129 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:c="http://java.sun.com/jstl/core"
+                template="template.xhtml">
+
+  <ui:define name="head">
+    <style type="text/css">
+    img {
+          border-style: none;
+        }
+       .contentPanel {
+        vertical-align:top;
+        width: 70%;
+        margin: 0px;
+        padding: 0px;
+      }
+      .ui-header {
+        width: 100%;
+        padding: 0;
+      }
+	.header {
+  width: 950px;
+  margin: auto;
+  position: relative;
+  background: #fff;
+  overflow: hidden;
+}
+
+</style>
+  </ui:define>
+  
+<ui:define name="content">
+<div align="center"><h:outputText  value="Report Charts :" style="font-weight:bold"/></div>
+<script type="text/javascript" src="#{request.contextPath}/resources/js/html2canvas.js"></script>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+					
+<h:panelGrid id="filters" columns="2"  cellpadding="1" cellspacing="1" style="width: 100%;">
+      <p:panel id="fpanel">
+        <h:form>
+			<h:panelGrid columns="1" columnClasses="left,right" style="width:100%">
+        		<div class="ui-fluid">
+                <p:panelGrid  columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" 
+                             layout="grid" styleClass="ui-fluid card">
+                 
+                 <p:outputLabel for="district" value="District: "  />
+            	<p:selectOneMenu id="district" value="#{chartReportView.district}"  >
+                <p:ajax listener="#{dropdownView.onDistrictChange}" update="block" />
+                <f:selectItem itemLabel="Select District" itemValue="" noSelectionOption="true" />
+                <f:selectItems value="#{dropdownView.districts}" />
+            	</p:selectOneMenu>
+            	
+            	<p:outputLabel for="block" value="Block: " />
+            	<p:selectOneMenu id="block" value="#{chartReportView.block}" >
+            	<p:ajax listener="#{dropdownView.onBlockChange}"  />
+                <f:selectItem itemLabel="Select Block" itemValue="" noSelectionOption="true" />
+                <f:selectItems value="#{dropdownView.blocks}" />
+            	</p:selectOneMenu>
+            	
+                  <p:outputLabel for="month" value="Select Month:"/>
+            		<p:selectOneMenu id="month" value="#{chartReportView.month}" >
+            		<f:selectItem itemLabel="Select Month" itemValue="" noSelectionOption="true" />
+                	<f:selectItems value="#{chartReportView.months}" />
+            		</p:selectOneMenu>
+            		
+            		<p:outputLabel for="nobeds" value="Select No Of Beds:"/>
+            		<p:selectOneMenu id="nobeds" value="#{chartReportView.noOfBed}" >
+            		<f:selectItem itemLabel="Select No Of Beds" itemValue="" noSelectionOption="true" />
+                	<f:selectItems value="#{chartReportView.noOfBeds}" />
+            		</p:selectOneMenu>
+            		
+            		<p:outputLabel for="quarter" value="Select Quarter:"/>
+            		<p:selectOneMenu id="quarter" value="#{chartReportView.quater}" >
+            		<f:selectItem itemLabel="Select Quarter" itemValue="" noSelectionOption="true" />
+                	<f:selectItems value="#{chartReportView.quaters}" />
+            		</p:selectOneMenu>
+            		
+            		
+					
+            		<p:commandButton value="Generate" id="ssb" style="width:100px;height:25px" icon="ui-icon-refresh"
+        			action="#{chartReportView.submit}" ajax="false" >
+        			</p:commandButton>
+        			
+            	  </p:panelGrid> 
+           		</div> 
+           	
+    		</h:panelGrid>
+    	</h:form>
+      </p:panel>
+    </h:panelGrid>	
+    <h:panelGrid id="twoSideGrid" columns="2"  cellpadding="1" cellspacing="1" style="width: 100%;">
+      <p:panel id="panel">
+        <h:form id="imageFrom">
+        <script type="text/javascript">
+            function saveAsImage() { 
+                html2canvas($("#imageFrom\\:barChart"), {
+                    onrendered: function(canvas) {
+                        theCanvas = canvas;
+                        document.body.appendChild(canvas);
+                        $("#imageFrom\\:output").append(canvas);
+                    }
+                });
+            }
+        </script>
+			<h:panelGrid columns="1" columnClasses="left,right" style="width:100%">
+        		<p:chart id="barChart" type="bar" model="#{chartReportView.barModel}" style="width: #{chartReportView.width}%;height:600px;"  
+        		animate="true"  >
+            	<p:ajax event="itemSelect" listener="#{chartReportView.itemSelect}" update="growl" />
+        		</p:chart>  
+    		</h:panelGrid>
+			<p:growl id="growl" showDetail="true" />
+			<p:commandButton id="btnSave" value="Export" onclick="saveAsImage();PF('eventDialog').show();"/>
+        <p:dialog id="eventDialog" widgetVar="eventDialog" resizable="false" width="700" height="400" appendToBody="true">
+            <p:outputPanel id="output"/>
+        </p:dialog>
+        </h:form>
+        <br/>
+      </p:panel>
+    </h:panelGrid>
+
+  </ui:define>
+
+</ui:composition>
+
+
+

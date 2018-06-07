@@ -1,0 +1,92 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:c="http://java.sun.com/jstl/core"
+                template="template.xhtml">
+
+  <ui:define name="head">
+    <style type="text/css">
+    img {
+          border-style: none;
+        }
+       .contentPanel {
+        vertical-align:top;
+        width: 70%;
+        margin: 0px;
+        padding: 0px;
+      }
+      .ui-header {
+        width: 100%;
+        padding: 0;
+        
+      }
+	.header {
+  width: 950px;
+  margin: auto;
+  position: relative;
+  background: #fff;
+  overflow: hidden;
+}
+.column1 {
+    width: 50%;
+    text-align: left;
+}
+
+.column2 {
+    width: 50%;
+    text-align: right;
+}
+    </style>
+  </ui:define>
+  
+<ui:define name="content">
+<div align="center"><h:outputText  value="Report Charts :" style="font-weight:bold"/></div>
+    <h:panelGrid id="twoSideGrid" columns="2"  cellpadding="1" cellspacing="1" style="width: 100%;">
+      <p:panel id="panel">
+        <h:form  >
+
+			<h:panelGrid columns="2" columnClasses="left,right" style="width:100%">
+ 
+ 	<p:chart type="bar" model="#{chartView.barMTC_T_AD_Model}" style="width:600px;height:300px">
+            <p:ajax event="itemSelect" listener="#{chartView.itemSelect}" update="growl" />
+        </p:chart> 
+        
+        <p:chart type="bar" model="#{chartView.barModel}" style="width:600px;height:300px"  animate="true" >
+            <p:ajax event="itemSelect" listener="#{chartView.itemSelect}" update="growl" />
+        </p:chart>  
+        
+        
+        <p:chart type="pie" model="#{chartView.pieModel1}" style="width:400px;height:300px">
+            <p:ajax event="itemSelect" listener="#{chartView.itemSelect}" update="growl" />
+        </p:chart>
+        <p:chart type="pie" model="#{chartView.pieModel2}" style="width:400px;height:300px" >
+         <p:ajax event="itemSelect" listener="#{chartView.itemSelect}" update="growl" />
+        </p:chart>
+    	</h:panelGrid>
+    				
+			<p:chart type="bar" model="#{chartView.barMTC_T_AD_Model}" widgetVar="chart" style="width: 100%;height:300px"/>
+ 		
+			<p:chart type="bar" model="#{chartView.horizontalBarModel}" style="height:300px"/>
+
+			
+			<p:chart type="line" model="#{chartView.lineModel2}" style="height:300px;"/>
+			<p:growl id="growl" showDetail="true" />
+        </h:form>
+
+        <br/>
+      </p:panel>
+
+    </h:panelGrid>
+
+ 
+
+
+  </ui:define>
+
+</ui:composition>
+
+
+

@@ -1,0 +1,83 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:c="http://java.sun.com/jstl/core"
+                template="template.xhtml">
+
+  <ui:define name="head">
+    <style type="text/css">
+    img {
+          border-style: none;
+        }
+       .contentPanel {
+        vertical-align:top;
+        width: 70%;
+        margin: 0px;
+        padding: 0px;
+      }
+      .ui-header {
+        width: 100%;
+        padding: 0;
+        
+      }
+	.header {
+  width: 950px;
+  margin: auto;
+  position: relative;
+  background: #fff;
+  overflow: hidden;
+}
+.column1 {
+    width: 50%;
+    text-align: left;
+}
+
+.column2 {
+    width: 50%;
+    text-align: right;
+}
+    </style>
+  </ui:define>
+  
+<ui:define name="content">
+<div align="center"><h:outputText  value="Report Charts :" style="font-weight:bold"/></div>
+
+<h:head>
+    
+    <script type="text/javascript" src="#{request.contextPath}/resources/js/html2canvas.js"></script>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+</h:head>
+<h:body>
+    
+        <h:form id="imageFrom">
+        <script type="text/javascript">
+            function saveAsImage() { 
+                html2canvas($("#imageFrom\\:barChart"), {
+                    onrendered: function(canvas) {
+                        theCanvas = canvas;
+                        document.body.appendChild(canvas);
+                        $("#imageFrom\\:output").append(canvas);
+                    }
+                });
+            }
+        </script>
+			<h:panelGrid columns="1" columnClasses="left,right" style="width:100%">
+        		<p:chart id="barChart" type="bar" model="#{chartReportView.barModel}" style="width: #{chartReportView.width}%;height:600px;"  
+        		animate="true"  >
+            	<p:ajax event="itemSelect" listener="#{chartReportView.itemSelect}" update="growl" />
+        		</p:chart>  
+    		</h:panelGrid>
+			<p:growl id="growl" showDetail="true" />
+            
+        <p:commandButton id="btnSave" value="Export" onclick="saveAsImage();PF('eventDialog').show();"/>
+        <p:dialog id="eventDialog" widgetVar="eventDialog" resizable="false" width="520" height="300" appendToBody="true">
+            <p:outputPanel id="output"/>
+        </p:dialog>
+    </h:form>
+</h:body>
+
+  </ui:define>
+</ui:composition>

@@ -1,0 +1,110 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:c="http://java.sun.com/jstl/core"
+                template="template.xhtml">
+
+  <ui:define name="head">
+    <style type="text/css">
+    img {
+          border-style: none;
+          
+        }
+       .contentPanel {
+        vertical-align:top;
+        width: 70%;
+        margin: 0px;
+        padding: 0px;
+      }
+      .ui-header {
+        width: 100%;
+        padding: 0;
+        
+      }
+	.header {
+  width: 950px;
+  margin: auto;
+  position: relative;
+  background: #fff;
+  overflow: hidden;
+}
+.column1 {
+    width: 50%;
+    text-align: left;
+}
+
+.column2 {
+    width: 50%;
+    text-align: right;
+}
+    </style>
+  </ui:define>
+  
+<ui:define name="content">
+<div align="center"><h:outputText  value="Search Child :" style="font-weight:bold"/></div>
+			
+        <h:form>
+        <h:panelGrid id="twoSideGrid" columns="2"  cellpadding="1" cellspacing="1" style="width: 100%;">
+      <p:panel id="panel">
+			<h:panelGroup>
+				<p:outputLabel for="input" value="Child SAM ID: "/>
+                <p:inputText id="input" value="#{searchView.samId}"  />
+                <p:spacer width="50" height="10" />
+             </h:panelGroup>   
+                 <h:panelGroup>
+        	<p:commandButton value="Search" id="searchc" actionListener="#{searchView.onSearch}" ajax="false" />
+        	</h:panelGroup>   
+        	</p:panel>
+        	</h:panelGrid>
+       <h:panelGrid id="ll" columns="2"  cellpadding="1" cellspacing="1" rendered="#{searchView.istableenabled}"  style="width: 100%;">
+		
+		<p:dataTable id="record" var="result" value="#{searchView.results}">
+                <p:column >
+                  <f:facet name="header">SAM ID </f:facet>
+                  <h:commandLink actionListener="#{searchView.onSearchP}" >
+					<h:outputText value="#{result.samId}" escape="false"/>
+					</h:commandLink>
+                </p:column>
+                <p:column >
+                  <f:facet name="header"> Child Name </f:facet>
+                  <h:outputText value="#{result.childName}" escape="false"/>
+                </p:column>
+                <p:column >
+                  <f:facet name="header"> Registration Date  </f:facet>
+                  <h:outputText value="#{result.registrationDate}" escape="false"/>
+                </p:column>
+                <p:column>
+                  <f:facet name="header">Admission Date </f:facet>
+                  <h:outputText value="#{result.admissionDate}" escape="false"/>
+                </p:column>
+                <p:column>
+                  <f:facet name="header">Father Name </f:facet>
+                  <h:outputText value="#{result.fatherName}" escape="false"/>
+                </p:column>
+				<p:column>
+                  <f:facet name="header">MTC Name </f:facet>
+                  <h:outputText value="#{result.mtcName}" escape="false"/>
+                </p:column>
+                <p:column>
+                  <f:facet name="header">Status </f:facet>
+                  <h:outputText value="#{result.status}" escape="false"/>
+                </p:column>
+              </p:dataTable>
+				
+
+    </h:panelGrid>
+		
+        </h:form>
+
+        <br/>
+      
+
+  </ui:define>
+
+</ui:composition>
+
+
+

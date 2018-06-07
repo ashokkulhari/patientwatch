@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+     
+  <f:view contentType="text/html">
+	<h:head   width="1250" height="181" alt="header" >
+      <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+      <title>Reporting</title>
+      <ui:insert name="head"  ></ui:insert>
+      <style type="text/css">
+        img {
+          border-style: none;
+        }
+        
+        .mystyleClass .pf-panel-bd {
+         background: #333333;
+         height: 150px;
+         color:#CCCCCC;
+         }
+      </style>
+
+    </h:head>
+
+    <h:body>
+      <div class="outer-container" >
+      <!-- div class="ui-widget ui-widget-header" align="center" style="align: right;width:100px;height: 50px;"-->
+       	<h:graphicImage library="images" name="/banner.jpg" width="200" height="171" />            
+     
+		<h:graphicImage library="images" name="/bannerf.jpg" width="200" height="171" style="float:right;"/>
+		
+		<h:form id="menuForm" styleClass="ui-widget " >
+		<div align="right"><h:outputText value="Welcome #{login.c_name}" /></div>
+		<p:menubar id="menu" autoDisplay="false" style="background:#e6eeff;">
+            
+            	<p:submenu label="Home">
+            	<p:menuitem value="Dashboard" immediate="true" actionListener="#{login.redirectDashboard}" ajax="false" ></p:menuitem>
+            	</p:submenu>
+            	
+            
+            	<p:submenu label="Transactions">
+            	<p:menuitem value="Registrations" immediate="true" actionListener="#{login.redirectToRegistration}" ajax="false"    />
+            	<p:menuitem value="Search" url="/pages/search.xhtml" ></p:menuitem>
+            	<p:menuitem value="Review" url="/pages/reviews.xhtml" ></p:menuitem>
+            	<p:menuitem value="Upload" url="/pages/fileupda.xhtml" ></p:menuitem>
+            	</p:submenu>
+            
+            	<p:submenu label="Reports">
+            	<p:menuitem value="ReportsDateWise" url="/pages/report1.xhtml" ></p:menuitem>
+            	<p:menuitem value="FinalReport"  immediate="true" actionListener="#{login.test}" ajax="false"  ></p:menuitem>
+            	<p:menuitem value="Charts" url="/pages/charts.xhtml" ></p:menuitem>
+            	<p:menuitem value="ChartReportView" url="/pages/ChartReportView.xhtml" ></p:menuitem>
+            	<p:menuitem value="Charts1" url="/pages/chart1.xhtml" ></p:menuitem>
+            	
+            	</p:submenu>
+            	
+            	
+            	<f:facet id="2" name="options">
+            		<h:commandLink actionListener="#{login.logout}"  value="Logout"  ajax="false" icon="ui-icon-extlink">
+            		</h:commandLink>
+        		</f:facet>
+       </p:menubar>
+	</h:form>
+    
+           <!-- p:menubar model="#{menuBean.menuModel}"  >
+    		</p:menubar-->
+      
+          <div class="main">
+
+            <div class="content">
+            <br />
+  
+              <ui:insert name="content">
+              </ui:insert>
+            </div>
+
+            <div class="clearer"></div>
+
+          </div>
+
+          <br/>
+          
+        </div>
+
+    </h:body>
+  </f:view>
+
+</html>

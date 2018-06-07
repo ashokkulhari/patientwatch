@@ -1,0 +1,274 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:c="http://java.sun.com/jstl/core"
+                template="template.xhtml">
+
+  <ui:define name="head">
+    <style type="text/css">
+    img {
+          border-style: none;
+          
+        }
+       .contentPanel {
+        vertical-align:top;
+        width: 70%;
+        margin: 0px;
+        padding: 0px;
+      }
+      .ui-header {
+        width: 100%;
+        padding: 0;
+        
+      }
+	.header {
+  width: 950px;
+  margin: auto;
+  position: relative;
+  background: #fff;
+  overflow: hidden;
+}
+.column1 {
+    width: 50%;
+    text-align: left;
+}
+
+.column2 {
+    width: 50%;
+    text-align: right;
+}
+    </style>
+  </ui:define>
+  
+<ui:define name="content">
+<div align="center"><h:outputText  value="FINAL REPORT :" style="font-weight:bold"/></div>
+			
+    <h:panelGrid id="twoSideGrid" columns="2"  cellpadding="1" cellspacing="1" style="width: 100%;">
+      <p:panel id="panel">
+        <h:form>
+			
+	<p:outputLabel  value="Select: "  /> <p:spacer width="10" height="5" />
+	 	<p:outputLabel for="admissioncheck" value="Admissions:"  />   
+  		<h:selectBooleanCheckbox id="admissioncheck" value="#{finalCheckBoxView.b1}">
+    	<p:ajax listener="#{finalCheckBoxView.onBol1}" update="pg2" event="change"  process="@this"/>                                   
+		</h:selectBooleanCheckbox><p:spacer width="10" height="5" />
+		<p:outputLabel for="agegrp" value="Age Group (in months):"  /> 
+  		<h:selectBooleanCheckbox id="agegrp" value="#{finalCheckBoxView.b2}">
+    	<p:ajax listener="#{finalCheckBoxView.onBol1}" update="pg2" event="change"  process="@this"/>                                   
+		</h:selectBooleanCheckbox>	<p:spacer width="10" height="5" />  
+		<p:outputLabel for="s_caste" value="Caste:"  />   
+  		<h:selectBooleanCheckbox id="s_caste" value="#{finalCheckBoxView.b3}">
+    	<p:ajax listener="#{finalCheckBoxView.onBol1}" update="pg2" event="change"  process="@this"/>                                   
+		</h:selectBooleanCheckbox><p:spacer width="10" height="5" />  	
+		<p:outputLabel for="s_refferal" value="  Referrals By:"  />   
+  		<h:selectBooleanCheckbox id="s_refferal" value="#{finalCheckBoxView.b4}">
+    	<p:ajax listener="#{finalCheckBoxView.onBol1}" update="pg2" event="change"  process="@this"/>                                   
+		</h:selectBooleanCheckbox><p:spacer width="10" height="5" />  	
+		<p:outputLabel for="s_adm_c" value="  Admission Criteria:"  />   
+  		<h:selectBooleanCheckbox id="s_adm_c" value="#{finalCheckBoxView.b5}">
+    	<p:ajax listener="#{finalCheckBoxView.onBol1}" update="pg2" event="change"  process="@this"/>                                   
+		</h:selectBooleanCheckbox><p:spacer width="10" height="5" /> 	
+		<p:outputLabel for="s_bed_occ" value="  Bed Occupancy:"  />   
+  		<h:selectBooleanCheckbox id="s_bed_occ" value="#{finalCheckBoxView.b6}">
+    	<p:ajax listener="#{finalCheckBoxView.onBol1}" update="pg2" event="change"  process="@this"/>                                   
+		</h:selectBooleanCheckbox><p:spacer width="10" height="5" /> 	
+		<p:outputLabel for="s_ln_stay" value="  Length of Stay:"  />   
+  		<h:selectBooleanCheckbox id="s_ln_stay" value="#{finalCheckBoxView.b7}">
+    	<p:ajax listener="#{finalCheckBoxView.onBol1}" update="pg2" event="change"  process="@this"/>                                   
+		</h:selectBooleanCheckbox><p:spacer width="10" height="5" /> 	
+		<p:outputLabel for="s_exit_in" value="  Exit Indicators:"  />   
+  		<h:selectBooleanCheckbox id="s_exit_in" value="#{finalCheckBoxView.b8}">
+    	<p:ajax listener="#{finalCheckBoxView.onBol1}" update="pg2" event="change"  process="@this"/>                                   
+		</h:selectBooleanCheckbox><p:spacer width="10" height="5" /> 	
+		<p:outputLabel for="s_ot_out" value="  Other outcomes:"  />   
+  		<h:selectBooleanCheckbox id="s_ot_out" value="#{finalCheckBoxView.b9}">
+    	<p:ajax listener="#{finalCheckBoxView.onBol1}" update="pg2" event="change"  process="@this"/>                                   
+		</h:selectBooleanCheckbox><p:spacer width="10" height="5" /> 	
+		<p:outputLabel for="s_foll_up" value="  Follow-up:"  />   
+  		<h:selectBooleanCheckbox id="s_foll_up" value="#{finalCheckBoxView.b10}">
+    	<p:ajax listener="#{finalCheckBoxView.onBol1}" update="pg2" event="change"  process="@this"/>                                   
+		</h:selectBooleanCheckbox>	        
+        <h:panelGrid  id="pg2" columns="5" cellpadding="5">
+	
+        <h:panelGroup id="adplgr" rendered="#{finalCheckBoxView.b1}">
+    	<h:selectManyCheckbox  id="grid1" value="#{finalCheckBoxView.selectedItems}" layout="pageDirection" columns="6"  >
+        <f:selectItems value="#{finalCheckBoxView.items}" var="selectedItem" itemLabel="#{selectedItem}" itemValue="#{selectedItem}" />
+        <p:ajax listener="#{finalCheckBoxView.onSubmit}"  />
+    	</h:selectManyCheckbox>
+    	</h:panelGroup>
+    	
+	
+    <h:panelGroup  rendered="#{finalCheckBoxView.b2}" >
+      <h:selectManyCheckbox  id="grid2" value="#{finalCheckBoxView.selectedItems2}"  layout="pageDirection" columns="6"  >
+        <f:selectItems value="#{finalCheckBoxView.items2}" var="selectedItem2" itemLabel="#{selectedItem2}" itemValue="#{selectedItem2}" />
+        <p:ajax listener="#{finalCheckBoxView.onSubmit}"  />
+    </h:selectManyCheckbox>
+    </h:panelGroup>
+    <h:panelGroup rendered="#{finalCheckBoxView.b3}">
+      <h:selectManyCheckbox  id="grid3" value="#{finalCheckBoxView.selectedItems3}" layout="pageDirection" columns="6"  >
+        <f:selectItems value="#{finalCheckBoxView.items3}" var="selectedItem3" itemLabel="#{selectedItem3}" itemValue="#{selectedItem3}"  />
+        <p:ajax listener="#{finalCheckBoxView.onSubmit}"  />
+    </h:selectManyCheckbox>
+    </h:panelGroup>
+    <h:panelGroup rendered="#{finalCheckBoxView.b4}">
+      <h:selectManyCheckbox  id="grid4" value="#{finalCheckBoxView.selectedItems4}" layout="pageDirection" columns="6"  >
+        <f:selectItems value="#{finalCheckBoxView.items4}" var="selectedItem4" itemLabel="#{selectedItem4}" itemValue="#{selectedItem4}"  />
+        <p:ajax listener="#{finalCheckBoxView.onSubmit}"  />
+    </h:selectManyCheckbox>
+    </h:panelGroup>
+    <h:panelGroup rendered="#{finalCheckBoxView.b5}" >
+      <h:selectManyCheckbox  id="grid5" value="#{finalCheckBoxView.selectedItems5}" layout="pageDirection" columns="6"  >
+        <f:selectItems value="#{finalCheckBoxView.items5}" var="selectedItem5" itemLabel="#{selectedItem5}" itemValue="#{selectedItem5}"  />
+        <p:ajax listener="#{finalCheckBoxView.onSubmit}"  />
+    </h:selectManyCheckbox>
+    </h:panelGroup>
+    <h:panelGroup rendered="#{finalCheckBoxView.b6}">
+      <h:selectManyCheckbox  id="grid6" value="#{finalCheckBoxView.selectedItems6}" layout="pageDirection" columns="6"  >
+        <f:selectItems value="#{finalCheckBoxView.items6}" var="selectedItem3" itemLabel="#{selectedItem7}" itemValue="#{selectedItem7}"  />
+        <p:ajax listener="#{finalCheckBoxView.onSubmit}"  />
+    </h:selectManyCheckbox>
+    </h:panelGroup>
+    <h:panelGroup rendered="#{finalCheckBoxView.b7}">
+      <h:selectManyCheckbox  id="grid7" value="#{finalCheckBoxView.selectedItems7}" layout="pageDirection" columns="6"  >
+        <f:selectItems value="#{finalCheckBoxView.items7}" var="selectedItem7" itemLabel="#{selectedItem7}" itemValue="#{selectedItem8}"  />
+        <p:ajax listener="#{finalCheckBoxView.onSubmit}"  />
+    </h:selectManyCheckbox>
+    </h:panelGroup>
+    <h:panelGroup rendered="#{finalCheckBoxView.b8}">
+      <h:selectManyCheckbox  id="grid8" value="#{finalCheckBoxView.selectedItems8}" layout="pageDirection" columns="6"  >
+        <f:selectItems value="#{finalCheckBoxView.items8}" var="selectedItem8" itemLabel="#{selectedItem8}" itemValue="#{selectedItem9}"  />
+        <p:ajax listener="#{finalCheckBoxView.onSubmit}"  />
+    </h:selectManyCheckbox>
+    </h:panelGroup>
+    <h:panelGroup rendered="#{finalCheckBoxView.b9}">
+      <h:selectManyCheckbox  id="grid9" value="#{finalCheckBoxView.selectedItems9}" layout="pageDirection" columns="6"  >
+        <f:selectItems value="#{finalCheckBoxView.items9}" var="selectedItem10" itemLabel="#{selectedItem9}" itemValue="#{selectedItem10}"  />
+        <p:ajax listener="#{finalCheckBoxView.onSubmit}"  />
+    </h:selectManyCheckbox>
+    </h:panelGroup>
+    <h:panelGroup rendered="#{finalCheckBoxView.b10}">
+      <h:selectManyCheckbox  id="grid10" value="#{finalCheckBoxView.selectedItems10}" layout="pageDirection" columns="6"  >
+        <f:selectItems value="#{finalCheckBoxView.items10}" var="selectedItem10" itemLabel="#{selectedItem10}" itemValue="#{selectedItem10}"  />
+        <p:ajax listener="#{finalCheckBoxView.onSubmit}"  />
+    </h:selectManyCheckbox>
+    </h:panelGroup>
+        </h:panelGrid>
+			
+        	
+        <p:separator />
+
+		<p:panelGrid  columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" 
+                             layout="grid" styleClass="ui-fluid card">
+            
+            
+            <p:outputLabel for="quarter" value="Quarter: " />
+            <p:selectOneMenu id="quarter" value="#{finalDDView.quater}" >
+            <f:selectItem itemLabel="Select Quarter" itemValue="" noSelectionOption="true" />
+            <p:ajax listener="#{finalDDView.onQuarterChange}"  />
+                <f:selectItems value="#{finalDDView.quaters}" />
+            </p:selectOneMenu>
+            
+            <p:outputLabel for="month" value="Month: " />
+            <p:selectOneMenu id="month" value="#{finalDDView.month}" >
+            <f:selectItem itemLabel="Select Month" itemValue="" noSelectionOption="true" />
+            <p:ajax listener="#{finalDDView.onMonthChange}"  />
+                <f:selectItems value="#{finalDDView.months}" />
+            </p:selectOneMenu>
+            
+            <p:outputLabel for="noOfBed" value="No Of Beds: " />
+            <p:selectOneMenu id="noOfBed" value="#{finalDDView.noOfBed}" >
+            <f:selectItem itemLabel="Select No Of Beds" itemValue="" noSelectionOption="true" />
+            <p:ajax listener="#{finalDDView.onNoOfBedChange}"  />
+                <f:selectItems value="#{finalDDView.noOfBeds}" />
+            </p:selectOneMenu>
+
+        	</p:panelGrid>
+
+			<p:panelGrid  id="fp1" columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" 
+                             layout="grid" styleClass="ui-fluid card">
+            <p:outputLabel for="districtfilter" value="Select Districts:" />
+        	<p:selectOneRadio id="districtfilter" value="#{finalDDView.districtfilter}">
+        	<p:ajax listener="#{finalDDView.onDistrictFilterSelect}"  update="fp2" event="change"  process="@this"/>
+            	<f:selectItem itemLabel="Single District" itemValue="single" />
+            	<f:selectItem itemLabel="Multi District" itemValue="multi" />
+        	</p:selectOneRadio>
+        </p:panelGrid>
+        <p:panelGrid  id="fp2" columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" 
+                             layout="grid" styleClass="ui-fluid card">
+        <p:outputLabel for="district" value="District: " rendered="#{finalDDView.districtfilter eq 'single'}" />
+            <p:selectOneMenu id="district" value="#{finalDDView.district}"  rendered="#{finalDDView.districtfilter eq 'single'}">
+                <p:ajax listener="#{finalDDView.onDistrictChange}" update="block" />
+                <f:selectItem itemLabel="Select District" itemValue="" noSelectionOption="true" />
+                <f:selectItems value="#{finalDDView.districts}" />
+            </p:selectOneMenu>
+	 
+            <p:outputLabel for="block" value="Block: " rendered="#{finalDDView.districtfilter eq 'single'}" />
+            <p:selectOneMenu id="block" value="#{finalDDView.block}" rendered="#{finalDDView.districtfilter eq 'single'}">
+            <p:ajax listener="#{finalDDView.onBlockChange}" update="mtc" />
+                <f:selectItem itemLabel="Select Block" itemValue="" noSelectionOption="true" />
+                <f:selectItems value="#{finalDDView.blocks}" />
+            </p:selectOneMenu>
+            
+            <p:outputLabel for="mtc" value="MTC: " rendered="#{finalDDView.districtfilter eq 'single'}"/>
+            <p:selectOneMenu id="mtc" value="#{finalDDView.mtc}" rendered="#{finalDDView.districtfilter eq 'single'}" >
+            <f:selectItem itemLabel="Select MTC" itemValue="" noSelectionOption="true" />
+            <p:ajax listener="#{finalDDView.onMTCChange}"  />
+                <f:selectItems value="#{finalDDView.mtcs}" />
+            </p:selectOneMenu>
+            
+             <p:pickList id="pickList" value="#{finalDDView.districtpicks}" var="districtpicks" itemLabel="#{districtpicks}"
+             itemValue="#{districtpicks}" rendered="#{finalDDView.districtfilter eq 'multi'}" >
+ 			<p:ajax event="transfer" listener="#{finalDDView.onTransfer}"  />
+ 			</p:pickList>         
+             </p:panelGrid>  
+           <p:panelGrid  id="submitpg" columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4" 
+                             layout="grid" styleClass="ui-fluid card">  
+                          <p:outputLabel for="submit" value=" " />   
+                           <p:outputLabel for="submit" value=" " />
+                           <p:outputLabel for="submit" value=" " />
+          <p:commandButton id="submit" value="Generate Report" actionListener="#{DynamicColumnBean.onSubmit}"  process="@this" 
+          ajax="false" icon="ui-icon-check" align="right">
+ 			</p:commandButton>
+ 			
+ 			</p:panelGrid> 
+ 			                 
+        <p:spacer width="100" height="10" /> 
+        <h:panelGrid id="pgtable" columns="2" cellpadding="2"  >
+        <p:scrollPanel > 
+              <p:dataTable id="tbl" binding="#{DynamicColumnBean.myDataTable}" scrollable="true" scrollHeight="100%" resizeMode="expand" 
+              resizableColumns="true"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                 paginator="true" rows="10" style="width: 100%;margin-bottom:20px"> 
+                 <f:facet name="{Exporters}">
+		            <h:commandLink>
+		                <p:graphicImage library="images" name="/excel1.png" width="24"/>
+        				<pe:exporter type="xlsx" target="tbl" fileName="tbl"  />  
+		            </h:commandLink>
+		            <h:commandLink>
+		                <p:graphicImage library="images" name="/pdf.png" width="24"/>
+		                <pe:exporter type="pdf" target="tbl" fileName="cars"/>
+		            </h:commandLink>
+        		</f:facet>
+              </p:dataTable>   
+		</p:scrollPanel>
+		</h:panelGrid>
+          <br/>
+          <br/>
+          <br/>
+
+        </h:form>
+
+        <br/>
+      </p:panel>
+
+    </h:panelGrid>
+
+
+  </ui:define>
+
+</ui:composition>
+
+
+

@@ -1,0 +1,183 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:pm="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui"
+    template="template.xhtml">
+
+  <ui:define name="head">
+    <style type="text/css">
+    img {
+          border-style: none;
+        }
+       .contentPanel {
+        vertical-align:top;
+        width: 70%;
+        margin: 0px;
+        padding: 0px;
+      }
+      .ui-header {
+        width: 100%;
+        padding: 0;
+        
+      }
+	.header {
+  width: 950px;
+  margin: auto;
+  position: relative;
+  background: #fff;
+  overflow: hidden;
+}
+.column1 {
+    width: 50%;
+    text-align: left;
+}
+.column2 {
+    width: 50%;
+    text-align: right;
+}
+.topAligned {
+    vertical-align: top;
+}
+    </style>
+  </ui:define>
+<ui:define name="content">
+<h:body>
+	<h:form id="form"  >
+    <p:growl id="msgs" showDetail="true" />
+    
+    <p:tabView dynamic="true" cache="true">
+        <p:tab title="Registration">
+            
+          <div class="ui-fluid">
+                <p:panelGrid  columns="4" rowClass="ui-grid-row"  columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                             layout="grid" styleClass="ui-fluid card">
+                    
+                  <f:facet name="header"><div align="left"> Basic Details </div></f:facet> 
+                     
+                    <p:outputLabel for="input" value="Name of Investigator :"/>
+                    <p:inputText id="input"/>
+                    
+                    <p:outputLabel for="calendar" value="Date of Visit:"/>
+                    <p:calendar id="calendar" showOn="both"/>
+                    
+                   
+                   
+                    <p:outputLabel for="district" value="District:"  />
+            		<p:selectOneMenu id="district" value="#{dropdownView.district}"  >
+                	<p:ajax listener="#{dropdownView.onDistrictChange}" update="block" />
+                	<f:selectItem itemLabel="Select District" itemValue="" noSelectionOption="true" />
+                	<f:selectItems value="#{dropdownView.districts}" />
+            		</p:selectOneMenu>
+            		
+            		<p:outputLabel for="block" value="Block:" />
+            		<p:selectOneMenu id="block" value="#{dropdownView.block}" >
+            		<p:ajax listener="#{dropdownView.onBlockChange}" update="mtc" />
+                	<f:selectItem itemLabel="Select Block" itemValue="" noSelectionOption="true" />
+                	<f:selectItems value="#{dropdownView.blocks}" />
+            		</p:selectOneMenu>
+            		
+            		<p:outputLabel for="mtc" value="MTC:" />
+            		<p:selectOneMenu id="mtc" value="#{dropdownView.mtc}" >
+            		<f:selectItem itemLabel="Select MTC" itemValue="" noSelectionOption="true" />
+                	<f:selectItems value="#{dropdownView.mtcs}" />
+            		</p:selectOneMenu>
+                    
+           </p:panelGrid> 
+           </div>
+           
+           <div class="ui-fluid">
+                <p:panelGrid  columns="4"  columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                             layout="grid" styleClass="ui-fluid card">
+                  <f:facet name="header"><div align="left"> Child Details </div></f:facet>         
+                    <p:outputLabel for="registration_no" value="Registration No:"/>
+                    <p:inputText id="registration_no"  disabled ="true" />
+                    <p:outputLabel for="child_name" value="Child Name :"/>
+                    <p:inputText id="child_name"/>
+                    <p:outputLabel for="father_name" value="Father Name :"/>
+                    <p:inputText id="father_name"/>
+                    <p:outputLabel for="mother_name" value="Mother Name :"/>
+                    <p:inputText id="mother_name"/>
+                    
+                   
+                    <p:outputLabel for="dob" value="Birth Date"/>
+                    <p:calendar id="dob" showOn="both"  navigator="true" />
+                    <p:outputLabel for="age_yr" value="Age (Years) :"/>
+                    <p:inputText id="age_yr"  disabled ="true" />
+                    <p:outputLabel for="age_month" value="Age (Months) :"/>
+                    <p:inputText id="age_month"  disabled ="true" />
+                    <p:outputLabel for="caste" value="Caste:" />
+            		<p:selectOneMenu id="caste" value="#{dropdownView.mtc}" >
+            		<f:selectItem itemLabel="Select Caste" itemValue="" noSelectionOption="true" />
+                	<f:selectItems value="#{dropdownView.mtcs}" />
+            		</p:selectOneMenu>
+					
+					<p:outputLabel for="current_adderss" value="Current Address :"/>
+                    <p:inputTextarea id="current_adderss"/>
+                    <p:outputLabel for="permanent_adderss" value="Permanent Address :"/>
+                    <p:inputTextarea id="permanent_adderss"/>
+                    <p:outputLabel for="phone_num" value="Phone Number :"/>
+                    <p:inputText id="phone_num"/>
+					<p:outputLabel for="aadhar_num" value="Aadhar Number :"/>
+                    <p:inputText id="aadhar_num"/>
+                    <p:outputLabel for="bhamasah_num" value="Bhamasah Number (Any family Member):"/>
+                    <p:inputText id="bhamasah_num"/>
+                    <p:outputLabel for="bhamasah_num" value="Upload Child Photo:"/>
+                    <h:form enctype="multipart/form-data" >
+					<p:fileUpload value="#{fileUploadView.file}" mode="advanced" update="messages"
+						fileUploadListener="#{fileUploadView.handleFileUpload}"></p:fileUpload>
+						<p:growl id="messages" showDetail="true" />				
+				
+					</h:form>
+           </p:panelGrid> 
+           </div>
+           
+           <div class="ui-fluid">
+                <p:panelGrid  columns="4"  columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                             layout="grid" styleClass="ui-fluid card">
+                  <f:facet name="header"><div align="left"> Child Anthropometry Details: </div></f:facet>  
+                  
+                  <p:outputLabel for="muac" value="MUAC(cm):"/>
+                    <p:inputText id="muac"/>
+                    <p:outputLabel for="len_or_height" value="Length/Height:"/>
+                    <p:inputText id="len_or_height"/>
+                    <p:outputLabel for="weight" value="Weight:"/>
+                    <p:inputText id="weight"/>
+                    <p:outputLabel for="wfh_wlh" value="Weight(wfh_wlh):"/>
+                    <p:inputText id="wfh_wlh"/>
+                    <p:outputLabel for="oedema" value="oedema:"/>
+                    <p:inputText id="oedema"/>
+                    <p:outputLabel for="medical_comp" value="medical_comp:"/>
+                    <p:inputTextarea id="medical_comp"/>
+                    <p:outputLabel for="remarks" value="remarks:"/>
+                    <p:inputTextarea id="remarks"/>
+             </p:panelGrid> 
+           </div> 
+           <div class="ui-fluid">
+                <p:panelGrid  columns="4"  columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                             layout="grid" styleClass="ui-fluid card">
+           			<p:commandButton value="Register" id="register_submit" style="width:100px;height:25px" 
+        			actionListener="#{dropdownView.onBlockChange}" ajax="false" />  
+        		</p:panelGrid> 
+           </div>   
+        </p:tab>
+        <p:tab title="Admission">
+            <h:panelGrid columns="2" cellpadding="10">
+                <h:outputText value="Francis Ford Coppola's legendary..." />
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="Discharge">
+            <h:panelGrid columns="2" cellpadding="10">
+                
+                <h:outputText value="After a break of more than 15 years..." />
+            </h:panelGrid>
+        </p:tab>
+    </p:tabView>
+    
+</h:form>
+
+</h:body>
+  </ui:define>
+
+</ui:composition>

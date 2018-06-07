@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:pm="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui"
+    template="template.xhtml">
+
+  <ui:define name="head">
+    <style type="text/css">
+    img {
+          border-style: none;
+        }
+       .contentPanel {
+        vertical-align:top;
+        width: 70%;
+        margin: 0px;
+        padding: 0px;
+      }
+      .ui-header {
+        width: 100%;
+        padding: 0;
+        
+      }
+	.header {
+  width: 950px;
+  margin: auto;
+  position: relative;
+  background: #fff;
+  overflow: hidden;
+}
+.column1 {
+    width: 50%;
+    text-align: left;
+}
+.column2 {
+    width: 50%;
+    text-align: right;
+}
+.topAligned {
+    vertical-align: top;
+}
+    </style>
+  </ui:define>
+<ui:define name="content">
+<h:body>
+	
+    
+    		
+   <h:form enctype="multipart/form-data" style="width:500px">
+				<p:fileUpload value="#{fileUploadView.file}" mode="advanced" update="messages"
+					fileUploadListener="#{fileUploadView.handleFileUpload}"></p:fileUpload>
+				<p:growl id="messages" showDetail="true" />				
+				<p:fileUpload value="#{fileUploadView.file}"  mode="simple"></p:fileUpload>
+				<p:separator/>
+				<h:commandButton value="Dummy Action" action="#{fileUploadView.upload}"></h:commandButton>
+		</h:form>
+    
+</h:body>
+  </ui:define>
+
+</ui:composition>

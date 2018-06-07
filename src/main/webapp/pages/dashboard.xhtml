@@ -1,0 +1,327 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="template.xhtml">
+
+  <ui:define name="head">
+
+    <style type="text/css">
+    img {
+          border-style: none;
+        }
+       .contentPanel {
+        vertical-align:top;
+        width: 70%;
+        margin: 0px;
+        padding: 0px;
+      }
+      .ui-header {
+        width: 100%;
+        padding: 0;
+      }
+	.header {
+  width: 950px;
+  margin: auto;
+  position: relative;
+  background: #fff;
+  overflow: hidden;
+}
+.column1 {
+    width: 50%;
+    text-align: left;
+}
+
+.column2 {
+    width: 50%;
+    text-align: right;
+}
+.inner-container {
+    border: 2px solid #D7D7D2;
+    background: #FFF;
+    /*margin: 0 auto;*/
+    /*padding: 10px;*/
+    min-height: 99%;
+}
+    </style>
+  </ui:define>
+<ui:define name="content">
+<h:body>
+
+<script language="javascript" type="text/javascript">
+    		function changedValues(buttonValue){
+ 				document.getElementById("ImageName").value   = buttonValue;
+			}
+	 </script>
+	
+    <h:form>
+        <p:growl id="msgs" showDetail="true" />
+ 		<!--h:outputText  value=" Dashboard" style="font-weight:bold"/-->
+        <h:panelGrid columns="2"  style="width: 100%;height:900%;" >
+       	<p:panel id="panel22" header="Rajasthan Map" style="height:900px">
+		    <h:commandLink>  
+    		<h:graphicImage usemap="#logoMapName" library="images"  onclick="#{rDashboardView.onDistrictClick()}"  name="/raj2.jpg" >
+				<map name="logoMapName">
+					<area id ="Ajmer" shape="circle" coords="287,243,25" href="#" title="Ajmer" alt="Ajmer" onclick="changedValues('Ajmer');"/>
+	<area id ="Bhilwara" shape="circle" coords="284,283,30" href="#" title="Bhilwara" alt="Bhilwara" onclick="changedValues('Bhilwara');"/>
+	<area id ="Nagaur" shape="circle" coords="255,193,33" href="#" title="Nagaur" alt="Nagaur" onclick="changedValues('Nagaur');"/>
+	<area id ="Tonk" shape="circle" coords="335,248,25" href="#" title="Tonk" alt="Tonk" onclick="changedValues('Tonk');"/>
+	<area id ="Bharatpur" shape="circle" coords="435,180,28" href="#" title="Bharatpur" alt="Bharatpur" onclick="changedValues('Bharatpur');"/>
+	
+	<area id="Dholpur" shape="circle" coords="447,220,26" href="#" title="Dholpur" alt="Dholpur" onclick="changedValues('Dholpur');"/>
+	<area id="Karauli" shape="circle" coords="413,233,24" href="#" title="Karauli" alt="Karauli" onclick="changedValues('Karauli');"/>		
+	<area id="Sawai Madhopur" shape="circle" coords="381,249,25" href="#" title="Sawai-Madhopur" alt="Sawai-Madhopur" onclick="changedValues('Sawai Madhopur');"/>
+	<area id="Bikaner" shape="circle" coords="200,133,36" href="#" title="Bikaner" alt="Bikaner" onclick="changedValues('Bikaner');"/>
+	<area id="Churu" shape="circle" coords="278,117,26" href="#" title="Churu" alt="Churu" onclick="changedValues('Churu');"/>
+	
+	<area id="Sri Ganganagar" shape="circle" coords="192,51,44" href="#" title="Ganganagar" alt="Ganganagar" onclick="changedValues('Sri Ganganagar');" />
+	<area id="Hanumangarh" shape="circle" coords="299,53,47"  href="#" title="Hanumangarh" alt="Hanumangarh" onclick="changedValues('Hanumangarh');"  />
+	<area id="Alwar" shape="circle" coords="385,160,25" href="#" title="Alwar" alt="Alwar" onclick="changedValues('Alwar');"/>		
+	<area id="Dausa" shape="circle" coords="383,200,22" href="#" title="Dausa" alt="Dausa" onclick="changedValues('Dausa');"/>
+	<area id="Jaipur-I" shape="circle" coords="336,182,23" href="#" title="Jaipur-I" alt="Jaipur-I" onclick="changedValues('Jaipur-I');"/>				
+	<area id="Jaipur-II" shape="circle" coords="335,220,23" href="#" title="Jaipur-II" alt="Jaipur-II" onclick="changedValues('Jaipur-II');"/>		
+			
+			
+	<area id="Jhunjhunu" shape="circle" coords="338,127,30" href="#" title="Jhunjhunu" alt="Jhunjhunu" onclick="changedValues('Jhunjhunu');"/>
+	<area id="Sikar" shape="circle" coords="318,165,21" href="#" title="Sikar" alt="Sikar" onclick="changedValues('Sikar');"/>		
+	<area id="Barmer" shape="circle" coords="113,273,40" href="#" title="Barmer" alt="Barmer" onclick="changedValues('Barmer');"/>		
+	<area id="Jaisalmer" shape="circle" coords="80,195,45" href="#" title="Jaisalmer" alt="Jaisalmer" onclick="changedValues('Jaisalmer');"/>
+	<area id="Jalore" shape="circle" coords="150,305,28" href="#" title="Jalore" alt="Jalore" onclick="changedValues('Jalore');"/>		
+	
+	<area id="Jodhpur" shape="circle" coords="184,223,37" href="#" title="Jodhpur" alt="Jodhpur" onclick="changedValues('Jodhpur');"/>
+	<area id="Pali" shape="circle" coords="218,273,27" href="#" title="Pali" alt="Pali" onclick="changedValues('Pali');"/>
+	<area id="Sirohi" shape="circle" coords="179,336,22" href="#" title="Sirohi" alt="Sirohi" onclick="changedValues('Sirohi');"/>		
+	<area id="Baran" shape="circle" coords="390,307,24" href="#" title="Baran" alt="Baran" onclick="changedValues('Baran');"/>
+ 	<area id="Bundi" shape="circle" coords="342,287,22" href="#" title="Bundi" alt="Bundi" onclick="changedValues('Bundi');"/>
+	
+	<area id="Jhalawar" shape="circle" coords="370,352,30" href="#" title="Jhalawar" alt="Jhalawar" onclick="changedValues('Jhalawar');"/>		
+	<area id="Kota" shape="circle" coords="352,310,21" href="#" title="Kota" alt="Kota" onclick="changedValues('Kota');"/>		
+	<area id="Banswara" shape="circle" coords="278,405,33" href="#" title="Banswara" alt="Banswara" onclick="changedValues('Banswara');"/> 		
+	<area id="Chittorgarh" shape="circle" coords="290,332,31" href="#" title="Chittorgarh" alt="Chittorgarh" onclick="changedValues('Chittorgarh');"/>		
+	<area id="Dungarpur" shape="circle" coords="225,390,25" href="#" title="Dungarpur" alt="Dungarpur" onclick="changedValues('Dungarpur');"/> 
+ 	
+	<area id="Pratapgarh" shape="circle" coords="299,366,34" href="#" title="Pratapgarh" alt="Pratapgarh" onclick="changedValues('Pratapgarh');"/>
+	<area id="Rajsamand" shape="circle" coords="235,310,25" href="#" title="Rajsamand" alt="Rajsamand" onclick="changedValues('Rajsamand');"/>
+	<area id="Udaipur" shape="circle" coords="238,354,30" href="#" title="Udaipur" alt="Udaipur" onclick="changedValues('Udaipur');"/>
+		</map>
+    
+ 			</h:graphicImage>
+    		</h:commandLink>
+    		<input type="hidden"  id="ImageName"   name="ImageName"/>
+       	</p:panel>
+       	
+       	
+    	<p:panel id="panel222" header="Summary" style="height:900px">
+    	<h:panelGroup>
+        	<h:panelGrid columns="2"  style="width: 100%;height:900%;" >
+        	
+       			<p:panel id="pane211" header="Output Indicators for May-2017 (20, 10 and 6-Bedded MTC's Combined) " style="height:200px">
+       			<h:panelGrid columns="3" columnClasses="label, value"  >
+         			  <h:outputText value="MTC Sanctioned" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="147" />
+                  		<h:outputText value="Beds" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_10_6_Current.tabd}" />
+                  		<h:outputText value="Total Admissions" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_10_6_Current.totalAdmissions}" />
+                		<h:outputText value="Discharge Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_10_6_Current.dischargeRate}%" />
+                		<h:outputText value="Average Recovery rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_10_6_Current.recoveryR}%" />
+                		<h:outputText value="Average Bed Occupancy Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_10_6_Current.bor}%" />
+                  		<h:outputText value="Average Length of Stay" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_10_6_Current.als}days" />
+                  		<h:outputText value="Average Defaulter Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_10_6_Current.defaulterR}%" />
+                  		<h:outputText value="Average Death Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_10_6_Current.deathR}%" />
+                  		<h:outputText value="Average Weight Gain" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_10_6_Current.awg}gm/kg/day" />
+                	</h:panelGrid>	
+       			</p:panel>
+       			
+    			<p:panel id="pane222" header="Output Indicators for upto May-2017 (20, 10 and 6-Bedded Combined)" style="height:200px">
+        			<h:panelGrid columns="3" columnClasses="label, value"  >
+         			  <h:outputText value="MTC Sanctioned" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="147" />
+                  		<h:outputText value="Beds" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_10_6_Range.tabd}" />
+                  		<h:outputText value="Total Admissions" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_10_6_Range.totalAdmissions}" />
+                		<h:outputText value="Discharge Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_10_6_Range.dischargeRate}%" />
+                		<h:outputText value="Average Recovery rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_10_6_Range.recoveryR}%" />
+                		<h:outputText value="Average Bed Occupancy Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_10_6_Range.bor}%" />
+                  		<h:outputText value="Average Length of Stay" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_10_6_Range.als}days" />
+                  		<h:outputText value="Average Defaulter Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_10_6_Range.defaulterR}%" />
+                  		<h:outputText value="Average Death Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_10_6_Range.deathR}%" />
+                  		<h:outputText value="Average Weight Gain" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_10_6_Range.awg}gm/kg/day" />
+                	</h:panelGrid>	
+      			</p:panel>
+      			
+			</h:panelGrid>
+			</h:panelGroup>
+			
+			<h:panelGroup>
+        	<h:panelGrid columns="2"  style="width: 100%;height:700%;" >
+       			<p:panel id="pane311" header="Output Indicators for May-2017 (20 Bedded MTC's)" style="height:200px">
+         			  <h:panelGrid columns="3" columnClasses="label, value"  >
+         			  <h:outputText value="MTC Sanctioned" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="147" />
+                  		<h:outputText value="Beds" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_Current.tabd}" />
+                  		<h:outputText value="Total Admissions" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_Current.totalAdmissions}" />
+                		<h:outputText value="Discharge Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_Current.dischargeRate}%" />
+                		<h:outputText value="Average Recovery rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_Current.recoveryR}%" />
+                		<h:outputText value="Average Bed Occupancy Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_Current.bor}%" />
+                  		<h:outputText value="Average Length of Stay" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_Current.als}days" />
+                  		<h:outputText value="Average Defaulter Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_Current.defaulterR}%" />
+                  		<h:outputText value="Average Death Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_Current.deathR}%" />
+                  		<h:outputText value="Average Weight Gain" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_Current.awg}gm/kg/day" />
+                	</h:panelGrid>	
+       			</p:panel>
+    			<p:panel id="pane20bR" header="Output Indicators for upto May-2017 (20,Bedded)" style="height:200px">
+        			<h:panelGrid columns="3" columnClasses="label, value"  >
+         			  <h:outputText value="MTC Sanctioned" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="147" />
+                  		<h:outputText value="Beds" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_Range.tabd}" />
+                  		<h:outputText value="Total Admissions" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_Range.totalAdmissions}" />
+                		<h:outputText value="Discharge Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_Range.dischargeRate}%" />
+                		<h:outputText value="Average Recovery rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_Range.recoveryR}%" />
+                		<h:outputText value="Average Bed Occupancy Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_Range.bor}%" />
+                  		<h:outputText value="Average Length of Stay" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_Range.als}days" />
+                  		<h:outputText value="Average Defaulter Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_Range.defaulterR}%" />
+                  		<h:outputText value="Average Death Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_Range.deathR}%" />
+                  		<h:outputText value="Average Weight Gain" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData20_Range.awg}gm/kg/day" />
+                	</h:panelGrid>	
+      			</p:panel>
+      			<p:panel id="pane10bC" header="Output Indicators for May-2017 (10 Bedded MTC's)" style="height:200px">
+        			<h:panelGrid columns="3" columnClasses="label, value"  >
+         			  <h:outputText value="MTC Sanctioned" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="147" />
+                  		<h:outputText value="Beds" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData10_Current.tabd}" />
+                  		<h:outputText value="Total Admissions" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData10_Current.totalAdmissions}" />
+                		<h:outputText value="Discharge Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData10_Current.dischargeRate}%" />
+                		<h:outputText value="Average Recovery rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData10_Current.recoveryR}%" />
+                		<h:outputText value="Average Bed Occupancy Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData10_Current.bor}%" />
+                  		<h:outputText value="Average Length of Stay" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData10_Current.als}days" />
+                  		<h:outputText value="Average Defaulter Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData10_Current.defaulterR}%" />
+                  		<h:outputText value="Average Death Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData10_Current.deathR}%" />
+                  		<h:outputText value="Average Weight Gain" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData10_Current.awg}gm/kg/day" />
+                	</h:panelGrid>	
+      			</p:panel>
+      			<p:panel id="pane10bR" header="Output Indicators for upto May-2017 (10,Bedded)" style="height:200px">
+        			<h:panelGrid columns="3" columnClasses="label, value"  >
+         			  <h:outputText value="MTC Sanctioned" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="147" />
+                  		<h:outputText value="Beds" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData10_Range.tabd}" />
+                  		<h:outputText value="Total Admissions" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData10_Range.totalAdmissions}" />
+                		<h:outputText value="Discharge Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData10_Range.dischargeRate}%" />
+                		<h:outputText value="Average Recovery rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData10_Range.recoveryR}%" />
+                		<h:outputText value="Average Bed Occupancy Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData10_Range.bor}%" />
+                  		<h:outputText value="Average Length of Stay" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData10_Range.als}days" />
+                  		<h:outputText value="Average Defaulter Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData10_Range.defaulterR}%" />
+                  		<h:outputText value="Average Death Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData10_Range.deathR}%" />
+                  		<h:outputText value="Average Weight Gain" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData10_Range.awg}gm/kg/day" />
+                	</h:panelGrid>	
+      			</p:panel>
+      			<p:panel id="pane6bC" header="Output Indicators for May-2017 (6 Bedded MTC's) " style="height:200px">
+        			<h:panelGrid columns="3" columnClasses="label, value"  >
+         			  <h:outputText value="MTC Sanctioned" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="147" />
+                  		<h:outputText value="Beds" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData6_Current.tabd}" />
+                  		<h:outputText value="Total Admissions" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData6_Current.totalAdmissions}" />
+                		<h:outputText value="Discharge Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData6_Current.dischargeRate}%" />
+                		<h:outputText value="Average Recovery rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData6_Current.recoveryR}%" />
+                		<h:outputText value="Average Bed Occupancy Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData6_Current.bor}%" />
+                  		<h:outputText value="Average Length of Stay" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData6_Current.als}days" />
+                  		<h:outputText value="Average Defaulter Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData6_Current.defaulterR}%" />
+                  		<h:outputText value="Average Death Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData6_Current.deathR}%" />
+                  		<h:outputText value="Average Weight Gain" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData6_Current.awg}gm/kg/day" />
+                	</h:panelGrid>	
+      			</p:panel>
+      			<p:panel id="pane6bR" header="Output Indicators for upto May-2017 (6,Bedded)" style="height:200px">
+        			<h:panelGrid columns="3" columnClasses="label, value"  >
+         			  <h:outputText value="MTC Sanctioned" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="147" />
+                  		<h:outputText value="Beds" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData6_Range.tabd}" />
+                  		<h:outputText value="Total Admissions" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData6_Range.totalAdmissions}" />
+                		<h:outputText value="Discharge Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData6_Range.dischargeRate}%" />
+                		<h:outputText value="Average Recovery rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData6_Range.recoveryR}%" />
+                		<h:outputText value="Average Bed Occupancy Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData6_Range.bor}%" />
+                  		<h:outputText value="Average Length of Stay" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData6_Range.als}days" />
+                  		<h:outputText value="Average Defaulter Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData6_Range.defaulterR}%" />
+                  		<h:outputText value="Average Death Rate" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData6_Range.deathR}%" />
+                  		<h:outputText value="Average Weight Gain" style="font-weight:bold"/><p:spacer width="100" height="10" />
+                  		<h:outputText value="#{rDashboardView.dashdoardData6_Range.awg}gm/kg/day" />
+                	</h:panelGrid>	
+      			</p:panel>
+			</h:panelGrid>
+			</h:panelGroup>
+      	</p:panel>
+		</h:panelGrid>
+    </h:form>
+</h:body>
+  </ui:define>
+
+</ui:composition>
