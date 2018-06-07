@@ -46,8 +46,7 @@ public class DynamicColumnBean implements Serializable{
 	@ManagedProperty("#{login}")
 	private transient Login loginBean;
 	private ArrayList<ArrayList<Object>> datas;
-	
-	
+		
 	@PostConstruct
     public void init() {
 			System.out.println(".................DynamicColumn init................");
