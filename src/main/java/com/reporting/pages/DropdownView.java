@@ -97,6 +97,7 @@ public class DropdownView implements Serializable {
 		    	setIslocationrender(false);
 		    }
 		    
+		    
 		    FacesContext contextFaces = FacesContext.getCurrentInstance();
 		    ServletContext servletContext = (ServletContext) contextFaces.getExternalContext().getContext();
 		    WebApplicationContext context = WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);

@@ -33,6 +33,7 @@ public class CustomerController {
 	public String doLogin(ModelMap model, @ModelAttribute("customerData") Customer customer,HttpSession session){
 		
 		System.out.println("..............login called..............");
+		
 		if(customer.getc_name()!=null && customer.getc_password()!=null && session.getAttribute("customer")==null){
 			customer = customerService.loginCustomer(customer);
 			if(customer!=null){
